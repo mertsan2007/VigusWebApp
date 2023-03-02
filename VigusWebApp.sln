@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vigus", "Vigus\Vigus.csproj", "{F78E07FC-22E9-4D43-B655-97B3DDA72A22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vigus.data", "Vigus.data\Vigus.data.csproj", "{77056C63-D7CD-4490-8E88-6CC5DE144F16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F78E07FC-22E9-4D43-B655-97B3DDA72A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78E07FC-22E9-4D43-B655-97B3DDA72A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78E07FC-22E9-4D43-B655-97B3DDA72A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78E07FC-22E9-4D43-B655-97B3DDA72A22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77056C63-D7CD-4490-8E88-6CC5DE144F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77056C63-D7CD-4490-8E88-6CC5DE144F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77056C63-D7CD-4490-8E88-6CC5DE144F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77056C63-D7CD-4490-8E88-6CC5DE144F16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B992458-5121-462F-A287-AB9615FAD9EB}
+	EndGlobalSection
+EndGlobal
