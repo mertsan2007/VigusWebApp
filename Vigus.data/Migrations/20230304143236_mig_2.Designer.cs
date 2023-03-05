@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vigus.data.Data;
 
@@ -11,9 +12,11 @@ using Vigus.data.Data;
 namespace Vigus.data.Migrations
 {
     [DbContext(typeof(VigusGpuContext))]
-    partial class VigusGPUContextModelSnapshot : ModelSnapshot
+    [Migration("20230304143236_mig_2")]
+    partial class mig_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace Vigus.data.Migrations
 
                     b.HasIndex("SupportedDriverVersionsId");
 
-                    b.ToTable("DriverVersionGpu", (string)null);
+                    b.ToTable("DriverVersionGpu");
                 });
 
             modelBuilder.Entity("GpuModelGpuTechnology", b =>
@@ -49,7 +52,7 @@ namespace Vigus.data.Migrations
 
                     b.HasIndex("GpuTechnologiesId");
 
-                    b.ToTable("GpuModelGpuTechnology", (string)null);
+                    b.ToTable("GpuModelGpuTechnology");
                 });
 
             modelBuilder.Entity("Vigus.data.Data.DriverVersion", b =>
@@ -69,7 +72,7 @@ namespace Vigus.data.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("DriverVersions", (string)null);
+                    b.ToTable("DriverVersions");
 
                     b.HasData(
                         new
@@ -135,7 +138,7 @@ namespace Vigus.data.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("Gpus", (string)null);
+                    b.ToTable("Gpus");
                 });
 
             modelBuilder.Entity("Vigus.data.Data.GpuModel", b =>
@@ -160,7 +163,7 @@ namespace Vigus.data.Migrations
 
                     b.HasIndex("SeriesId");
 
-                    b.ToTable("GpuModels", (string)null);
+                    b.ToTable("GpuModels");
 
                     b.HasData(
                         new
@@ -188,7 +191,7 @@ namespace Vigus.data.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("GpuTechnologies", (string)null);
+                    b.ToTable("GpuTechnologies");
 
                     b.HasData(
                         new
@@ -215,7 +218,7 @@ namespace Vigus.data.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("Series", (string)null);
+                    b.ToTable("Series");
 
                     b.HasData(
                         new

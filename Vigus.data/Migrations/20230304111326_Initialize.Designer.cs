@@ -11,7 +11,7 @@ using Vigus.data.Data;
 
 namespace Vigus.data.Migrations
 {
-    [DbContext(typeof(VigusGPUContext))]
+    [DbContext(typeof(VigusGpuContext))]
     [Migration("20230304111326_Initialize")]
     partial class Initialize
     {

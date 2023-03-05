@@ -1,21 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Vigus.data.Data;
 
-namespace Vigus
+namespace Vigus.Web
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-           
-            var conStr = builder.Configuration.GetConnectionString("DefCon");
-              builder.Services.AddDbContext<VigusGpuContext>(
-                  opt => opt.UseSqlServer(conStr)
-                  );
-            
+            var conStr = builder.Configuration.GetConnectionString("DefaultCon");
+
+            // Add services to the container.
             builder.Services.AddControllersWithViews();
-            
+            builder.Services.AddDbContext<VigusGpuContext>(options=>options.UseSqlServer(conStr));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
