@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Vigus.data.Data;
+using Vigus.Web.Data;
 
 #nullable disable
 
 namespace Vigus.data.Migrations
 {
     [DbContext(typeof(VigusGpuContext))]
-    [Migration("20230304143236_mig_2")]
-    partial class mig_2
+    [Migration("20230304111326_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,32 +64,11 @@ namespace Vigus.data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("DriverVersions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Vigus Driver Software 1.00"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Vigus Driver Software 1.03"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Vigus Driver Software 1.12"
-                        });
                 });
 
             modelBuilder.Entity("Vigus.data.Data.Gpu", b =>
@@ -104,7 +83,7 @@ namespace Vigus.data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FullGpuName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MemorySize")
                         .HasColumnType("int");
@@ -113,30 +92,20 @@ namespace Vigus.data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Tdp")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FullGpuName")
-                        .IsUnique()
-                        .HasFilter("[FullGpuName] IS NOT NULL");
-
                     b.HasIndex("ModelId");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Gpus");
                 });
@@ -150,28 +119,16 @@ namespace Vigus.data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SeriesId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.HasIndex("SeriesId");
 
                     b.ToTable("GpuModels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "B 500 Series",
-                            SeriesId = 2
-                        });
                 });
 
             modelBuilder.Entity("Vigus.data.Data.GpuTechnology", b =>
@@ -183,22 +140,11 @@ namespace Vigus.data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("GpuTechnologies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "dummy"
-                        });
                 });
 
             modelBuilder.Entity("Vigus.data.Data.Series", b =>
@@ -210,32 +156,11 @@ namespace Vigus.data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("Series");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "C Series"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "B Series"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "A Series"
-                        });
                 });
 
             modelBuilder.Entity("DriverVersionGpu", b =>

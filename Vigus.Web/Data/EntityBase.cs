@@ -1,4 +1,4 @@
-﻿namespace Vigus.data.Data;
+﻿namespace Vigus.Web.Data;
 
 public class EntityBase
 {

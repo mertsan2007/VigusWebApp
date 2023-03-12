@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Vigus.data.Data;
+using VigusGpuContext = Vigus.Web.Data.VigusGpuContext;
 
 namespace Vigus.Web
 {
@@ -10,7 +10,6 @@ namespace Vigus.Web
             var builder = WebApplication.CreateBuilder(args);
             var conStr = builder.Configuration.GetConnectionString("DefaultCon");
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<VigusGpuContext>(options=>options.UseSqlServer(conStr));
 

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Vigus.data.Data;
+namespace Vigus.Web.Data;
 
 public class VigusGpuContext : DbContext
 {
-    private string defTxt = "Vigus Driver Software ";
+    private string _defTxt = "Vigus Driver Software ";
 
     public VigusGpuContext(DbContextOptions options) : base(options){ }
 
@@ -41,9 +41,9 @@ public class VigusGpuContext : DbContext
         
         modelBuilder.Entity<DriverVersion>().HasData(
             new List<DriverVersion>{
-        new DriverVersion{ Id = 1, Name = defTxt+"1.00" },
-        new DriverVersion{ Id = 2, Name = defTxt+"1.03" },
-        new DriverVersion{ Id = 3, Name = defTxt+"1.12" }
+        new DriverVersion{ Id = 1, Name = _defTxt+"1.00" },
+        new DriverVersion{ Id = 2, Name = _defTxt+"1.03" },
+        new DriverVersion{ Id = 3, Name = _defTxt+"1.12" }
         }
         );
         
