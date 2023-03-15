@@ -23,10 +23,7 @@ public class VigusGpuContext : DbContext
         
         modelBuilder.Entity<Gpu>().HasIndex(col => col.Name)
             .IsUnique();
-        
-        modelBuilder.Entity<Gpu>().HasIndex(col => col.FullGpuName)
-            .IsUnique();
-        
+                
         modelBuilder.Entity<Series>().HasIndex(col => col.Name)
             .IsUnique();
         
