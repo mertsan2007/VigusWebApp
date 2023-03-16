@@ -21,14 +21,23 @@ ViewData["Title"] = "- Vigus";
 <div class="container py-4">
     <div class="container-sm">
         <h1 class="fw-bold text-decoration-underline">Products</h1>
-        @foreach (var gpu in Model)
-        {
-            <div class="card">
-                <img src="Images/defaultgpu.png" class="card-img-top h-100" alt="GPU" width="128" height="128"/>
-                <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayName(gpu.Name)</h5>
-                </div>
-            </div>
+        @{
+            if (Model == null)
+            {
+                <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
+            }
+            else
+            {
+                foreach (var gpu in Model)
+                {
+                    <div class="card" style="width: 8rem;">
+                        <img src="Images/defaultgpu.png" class="card-img-top h-100" alt="GPU" width="128" height="128"/>
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayName(gpu.Name)</h5>
+                        </div>
+                    </div>
+                }
+            }
         }
     </div>
 </div>

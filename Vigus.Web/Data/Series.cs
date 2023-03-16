@@ -4,6 +4,6 @@ public class Series : EntityBase
 {
     public string? Name { get; set; }
 
-    public virtual List<GpuModel>? GpuModels { get; set; }
+    public virtual ICollection<GpuModel>? GpuModels { get; set; }
     //C, B, A
 }

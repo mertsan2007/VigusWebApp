@@ -13,5 +13,5 @@ public class Gpu : EntityBase
     public int ModelId { get; set; }
     public virtual GpuModel? Model { get; set; }
 
-    public virtual List<DriverVersion>? SupportedDriverVersions { get; set; }
+    public virtual ICollection<DriverVersion>? SupportedDriverVersions { get; set; }
 }
