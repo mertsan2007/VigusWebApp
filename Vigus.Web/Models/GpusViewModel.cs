@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Vigus.Web.Data;
 
 namespace Vigus.Web.Models
 {
@@ -36,6 +37,6 @@ namespace Vigus.Web.Models
         [Display(Name = "Series Name")]
         public string? ModelName { get; set; }
 
-        public ICollection<string>? SupportedDriverVersions { get; set; }
+        public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }=new List<DriverVersion>();
     }
 }

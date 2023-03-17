@@ -4,8 +4,6 @@ namespace Vigus.Web.Data;
 
 public class VigusGpuContext : DbContext
 {
-    private string _defTxt = "Vigus Driver Software ";
-
     public VigusGpuContext(DbContextOptions options) : base(options) { }
 
     public DbSet<Gpu> Gpus { get; set; }
@@ -43,7 +41,15 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<GpuModel>().HasData(
-            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series" }
+            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series"}
+            );
+        
+        modelBuilder.Entity<DriverVersion>().HasData(
+            new List<DriverVersion>{}
+            );
+
+        modelBuilder.Entity<GpuTechnology>().HasData(
+            new GpuTechnology{Id = 1, Name = "d3d12 optimisations", Description = "asdgfsdgaasgsdgasdga"}
             );
 
     }
