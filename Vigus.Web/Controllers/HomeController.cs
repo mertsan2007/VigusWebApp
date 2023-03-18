@@ -32,7 +32,28 @@ namespace Vigus.Web.Controllers
                     ModelName = gpu.Model.Name,
                     SupportedDriverVersions = gpu.SupportedDriverVersions
                 };
-            return View(await vigusGpuContext.ToListAsync());
+            return View(await data.ToListAsync());
+        }
+        
+        public async Task<IActionResult> Products()
+        {
+            var vigusGpuContext = _context.Gpus.Include(g => g.Model);
+            var data = from gpu in vigusGpuContext
+                orderby gpu.Id descending
+                select new GpusViewModel
+                {
+                    Id = gpu.Id,
+                    Cores = gpu.Cores,
+                    Description = gpu.Description,
+                    FullGpuName = $"Vigus {gpu.Name}",
+                    MemorySizeInGb = gpu.MemorySize + "GB",
+                    PriceInDollars = gpu.Price + "$",
+                    ReleaseDate = gpu.ReleaseDate,
+                    TdpInWatts = gpu.Tdp + "W",
+                    ModelName = gpu.Model.Name,
+                    SupportedDriverVersions = gpu.SupportedDriverVersions
+                };
+            return View(await data.ToListAsync());
         }
     }
 }

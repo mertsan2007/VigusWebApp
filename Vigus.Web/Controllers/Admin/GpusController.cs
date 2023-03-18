@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
+using Vigus.Web.Models;
 
 namespace Vigus.Web.Controllers.Admin
 {
@@ -21,8 +18,22 @@ namespace Vigus.Web.Controllers.Admin
         // GET: Gpus
         public async Task<IActionResult> Index()
         {
-            var vigusGpuContext = _context.Gpus.Include(g => g.Model);
-            return View(await vigusGpuContext.ToListAsync());
+            var data = from gpu in _context.Gpus.Include(g => g.Model)
+                orderby gpu.Name
+                select new GpusViewModel
+                {
+                    Id = gpu.Id,
+                    Cores = gpu.Cores,
+                    Description = gpu.Description,
+                    FullGpuName = $"Vigus {gpu.Name}",
+                    MemorySizeInGb = gpu.MemorySize + "GB",
+                    PriceInDollars = gpu.Price + "$",
+                    ReleaseDate = gpu.ReleaseDate,
+                    TdpInWatts = gpu.Tdp + "W",
+                    ModelName = gpu.Model.Name,
+                    SupportedDriverVersions = gpu.SupportedDriverVersions
+                };
+            return View(await data.ToListAsync());
         }
 
         // GET: Gpus/Details/5
@@ -47,7 +58,7 @@ namespace Vigus.Web.Controllers.Admin
         // GET: Gpus/Create
         public IActionResult Create()
         {
-            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Id");
+            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             return View();
         }
 
@@ -64,7 +75,7 @@ namespace Vigus.Web.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Id", gpu.ModelId);
+            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
             return View(gpu);
         }
 
