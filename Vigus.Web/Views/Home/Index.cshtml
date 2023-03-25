@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GpusViewModel>
 
 @{
-ViewData["Title"] = "- Vigus";
+    ViewData["Title"] = "- Vigus";
 }
 <div class="container col-xxl-12 px-2  bg-dark">
     <div class="row flex-lg-row g-5 py-5 bg-dark text-light ">
@@ -22,21 +22,21 @@ ViewData["Title"] = "- Vigus";
     <div class="container-sm">
         <h1 class="fw-bold text-decoration-underline">Products</h1>
         @{
-            if (Model == null)
+            foreach (var gpu in Model)
             {
-                <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
-            }
-            else
-            {
-                foreach (var gpu in Model)
+                if (gpu.FullGpuName == null)
                 {
-                    <div class="card" style="width: 8rem;">
-                        <img src="Images/defaultgpu.png" class="card-img-top h-100" alt="GPU" width="128" height="128"/>
-                        <div class="card-body">
-                            <h5 class="card-title">@gpu.FullGpuName</h5>
-                        </div>
-                    </div>
+                    <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
+                    break;
                 }
+                <div style="display: inline-grid;">
+                <div class="card" style="width: 8rem;" onclick="console.log('click');">
+                    <img src="Images/defaultgpu.png" class="card-img-top h-100" alt="GPU" width="128" height="128" />
+                    <div class="card-body">
+                        <h5 class="card-title">@gpu.FullGpuName</h5>
+                    </div>
+                </div>
+                </div>
             }
         }
     </div>
