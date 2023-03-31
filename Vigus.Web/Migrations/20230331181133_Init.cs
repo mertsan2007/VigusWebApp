@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Vigus.data.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Vigus.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +19,28 @@ namespace Vigus.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KnownIssues = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FixedChanges = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DriverVersions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GpuImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GpuImages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,11 +49,25 @@ namespace Vigus.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GpuTechnologies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OsVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OsVersions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,11 +76,35 @@ namespace Vigus.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Series", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DriverVersionOsVersion",
+                columns: table => new
+                {
+                    DriverVersionsId = table.Column<int>(type: "int", nullable: false),
+                    OsVersionsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DriverVersionOsVersion", x => new { x.DriverVersionsId, x.OsVersionsId });
+                    table.ForeignKey(
+                        name: "FK_DriverVersionOsVersion_DriverVersions_DriverVersionsId",
+                        column: x => x.DriverVersionsId,
+                        principalTable: "DriverVersions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DriverVersionOsVersion_OsVersions_OsVersionsId",
+                        column: x => x.OsVersionsId,
+                        principalTable: "OsVersions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,7 +113,7 @@ namespace Vigus.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SeriesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -100,18 +157,25 @@ namespace Vigus.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FullGpuName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Cores = table.Column<int>(type: "int", nullable: true),
                     Tdp = table.Column<int>(type: "int", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     MemorySize = table.Column<int>(type: "int", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelId = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gpus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Gpus_GpuImages_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "GpuImages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gpus_GpuModels_ModelId",
                         column: x => x.ModelId,
@@ -144,10 +208,42 @@ namespace Vigus.data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "GpuTechnologies",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[] { 1, "asdgfsdgaasgsdgasdga", "d3d12 optimisations" });
+
+            migrationBuilder.InsertData(
+                table: "Series",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "C Series" },
+                    { 2, "B Series" },
+                    { 3, "A Series" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GpuModels",
+                columns: new[] { "Id", "Name", "SeriesId" },
+                values: new object[] { 1, "B 500 Series", 2 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DriverVersionGpu_SupportedDriverVersionsId",
                 table: "DriverVersionGpu",
                 column: "SupportedDriverVersionsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DriverVersionOsVersion_OsVersionsId",
+                table: "DriverVersionOsVersion",
+                column: "OsVersionsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DriverVersions_Name",
+                table: "DriverVersions",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GpuModelGpuTechnology_GpuTechnologiesId",
@@ -155,14 +251,47 @@ namespace Vigus.data.Migrations
                 column: "GpuTechnologiesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GpuModels_Name",
+                table: "GpuModels",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GpuModels_SeriesId",
                 table: "GpuModels",
                 column: "SeriesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Gpus_ImageId",
+                table: "Gpus",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Gpus_ModelId",
                 table: "Gpus",
                 column: "ModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gpus_Name",
+                table: "Gpus",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GpuTechnologies_Name",
+                table: "GpuTechnologies",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Series_Name",
+                table: "Series",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -172,16 +301,25 @@ namespace Vigus.data.Migrations
                 name: "DriverVersionGpu");
 
             migrationBuilder.DropTable(
-                name: "GpuModelGpuTechnology");
+                name: "DriverVersionOsVersion");
 
             migrationBuilder.DropTable(
-                name: "DriverVersions");
+                name: "GpuModelGpuTechnology");
 
             migrationBuilder.DropTable(
                 name: "Gpus");
 
             migrationBuilder.DropTable(
+                name: "DriverVersions");
+
+            migrationBuilder.DropTable(
+                name: "OsVersions");
+
+            migrationBuilder.DropTable(
                 name: "GpuTechnologies");
+
+            migrationBuilder.DropTable(
+                name: "GpuImages");
 
             migrationBuilder.DropTable(
                 name: "GpuModels");

@@ -11,6 +11,8 @@ public class VigusGpuContext : DbContext
     public DbSet<GpuModel> GpuModels { get; set; }
     public DbSet<GpuTechnology> GpuTechnologies { get; set; }
     public DbSet<DriverVersion> DriverVersions { get; set; }
+    public DbSet<OsVersion> OsVersions { get; set; }
+    public DbSet<GpuImage> GpuImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,6 +54,9 @@ public class VigusGpuContext : DbContext
             new GpuTechnology{Id = 1, Name = "d3d12 optimisations", Description = "asdgfsdgaasgsdgasdga"}
             );
 
+        modelBuilder.Entity<Gpu>().HasOne(col=>col.Image)
+            .WithOne(col=>col.Gpu)
+            .HasForeignKey<GpuImage>(col=>col.GpuId);
     }
     
 }
