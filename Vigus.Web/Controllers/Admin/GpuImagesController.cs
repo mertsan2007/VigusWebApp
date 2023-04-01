@@ -162,8 +162,11 @@ namespace Vigus.Web.Controllers.Admin
                 return Problem("Entity set 'VigusGpuContext.GpuImages'  is null.");
             }
             var gpuImage = await _context.GpuImages.FindAsync(id);
+            var imgpath = Path.Combine(_hostEnvironment.WebRootPath, "Images/UserUploads", gpuImage.Name);
             if (gpuImage != null)
             {
+                if(System.IO.File.Exists(imgpath))
+                {System.IO.File.Delete(imgpath); }
                 _context.GpuImages.Remove(gpuImage);
             }
             

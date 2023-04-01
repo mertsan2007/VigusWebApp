@@ -31,7 +31,8 @@ namespace Vigus.Web.Controllers.Admin
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name,
-                    SupportedDriverVersions = gpu.SupportedDriverVersions
+                    SupportedDriverVersions = gpu.SupportedDriverVersions,
+                    
                 };
             return View(await data.ToListAsync());
         }
@@ -67,7 +68,7 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,Id")] Gpu gpu)
+        public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +102,7 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,Id")] Gpu gpu)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
         {
             if (id != gpu.Id)
             {

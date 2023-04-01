@@ -53,10 +53,6 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<GpuTechnology>().HasData(
             new GpuTechnology{Id = 1, Name = "d3d12 optimisations", Description = "asdgfsdgaasgsdgasdga"}
             );
-
-        modelBuilder.Entity<Gpu>().HasOne(col=>col.Image)
-            .WithOne(col=>col.Gpu)
-            .HasForeignKey<GpuImage>(col=>col.GpuId);
     }
     
 }

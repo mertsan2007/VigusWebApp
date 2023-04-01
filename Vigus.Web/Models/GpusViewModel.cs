@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Vigus.Web.Data;
 
 namespace Vigus.Web.Models
@@ -38,5 +39,7 @@ namespace Vigus.Web.Models
         public string? ModelName { get; set; }
 
         public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }=new List<DriverVersion>();
+
+        public ICollection<SelectListItem>? Images { get; set; }
     }
 }

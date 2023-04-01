@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GpusViewModel>
+﻿@using Microsoft.IdentityModel.Tokens
+@model IEnumerable<GpusViewModel>
 
 @{
     ViewData["Title"] = "- Vigus";
@@ -24,19 +25,22 @@
         @{
             foreach (var gpu in Model)
             {
-                if (gpu.FullGpuName == null)
+                if (gpu.Id <= 0)
                 {
                     <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
                     break;
                 }
-                <div style="display: inline-grid;">
-                <div class="card" style="width: 8rem;" onclick="console.log('click');">
-                    <img src="Images/defaultgpu.png" class="card-img-top h-100" alt="GPU" width="128" height="128" />
-                    <div class="card-body">
-                        <h5 class="card-title">@gpu.FullGpuName</h5>
+                else
+                {
+                    <div style="display: inline-grid;">
+                        <div class="card" style="width: 8rem;" onclick="console.log('click');">
+                            <img src="@(gpu.ImageName==null ? "~/Images/defaultgpu.png" : "~/Images/UserUploads/"+gpu.ImageName)" asp-append-version="true" class="card-img-top h-100" alt="GPU" width="128" height="128" />
+                            <div class="card-body">
+                                <h5 class="card-title">@gpu.FullGpuName</h5>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
+                }
             }
         }
     </div>

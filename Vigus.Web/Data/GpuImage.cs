@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vigus.Web.Data
 {
     public class GpuImage:EntityBase
     {
+        [Required]
         public string? Title { get; set; }
 
+        [Required]
         public string? Name { get; set; }
 
         [NotMapped]
