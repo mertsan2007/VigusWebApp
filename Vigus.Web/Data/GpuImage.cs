@@ -14,7 +14,6 @@ namespace Vigus.Web.Data
         [NotMapped]
         public IFormFile File { get; set; }
 
-        public int GpuId { get; set; }
-        public virtual Gpu? Gpu { get; set; }
+        public virtual ICollection<Gpu>? Gpus { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages
         public async Task<IActionResult> Index()
         {
-            var vigusGpuContext = _context.GpuImages.Include(g => g.Gpu);
+            var vigusGpuContext = _context.GpuImages.Include(g => g.Gpus);
             return View(await vigusGpuContext.ToListAsync());
         }
 
@@ -37,7 +37,7 @@ namespace Vigus.Web.Controllers.Admin
             }
 
             var gpuImage = await _context.GpuImages
-                .Include(g => g.Gpu)
+                .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gpuImage == null)
             {
@@ -76,7 +76,7 @@ namespace Vigus.Web.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.GpuId);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
             return View(gpuImage);
         }
 
@@ -93,7 +93,7 @@ namespace Vigus.Web.Controllers.Admin
             {
                 return NotFound();
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.GpuId);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
             return View(gpuImage);
         }
 
@@ -129,7 +129,7 @@ namespace Vigus.Web.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.GpuId);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
             return View(gpuImage);
         }
 
@@ -142,7 +142,7 @@ namespace Vigus.Web.Controllers.Admin
             }
 
             var gpuImage = await _context.GpuImages
-                .Include(g => g.Gpu)
+                .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gpuImage == null)
             {

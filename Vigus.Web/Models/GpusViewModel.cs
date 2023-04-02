@@ -40,6 +40,6 @@ namespace Vigus.Web.Models
 
         public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }=new List<DriverVersion>();
 
-        public ICollection<SelectListItem>? Images { get; set; }
+        public string? ImageName { get; set; }
     }
 }

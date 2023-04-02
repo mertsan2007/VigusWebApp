@@ -43,11 +43,18 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<GpuModel>().HasData(
-            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series"}
+            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series"},
+            new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Series" },
+            new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Series" },
+            new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Series" },
+            new GpuModel { Id = 5, SeriesId = 1, Name = "C 80 Series" },
+            new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Series" },
+            new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Series" },
+            new GpuModel { Id = 8, SeriesId = 3, Name = "A 11 Series" }
             );
         
         modelBuilder.Entity<DriverVersion>().HasData(
-            new List<DriverVersion>{}
+            new DriverVersion{Id = 1, Name = "Vigus Driver Software v1.0.2", Description = "First release for legacy GPUs"}
             );
 
         modelBuilder.Entity<GpuTechnology>().HasData(

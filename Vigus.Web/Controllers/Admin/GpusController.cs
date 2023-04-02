@@ -60,6 +60,7 @@ namespace Vigus.Web.Controllers.Admin
         public IActionResult Create()
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
+            ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name");
             return View();
         }
 
@@ -77,6 +78,7 @@ namespace Vigus.Web.Controllers.Admin
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
+            ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name", gpu.ImageId);
             return View(gpu);
         }
 
