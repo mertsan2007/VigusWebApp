@@ -37,6 +37,8 @@ namespace Vigus.Web.Models
         [Required]
         [Display(Name = "Series Name")]
         public string? ModelName { get; set; }
+        
+        public ICollection<GpuTechnology>? Technologies { get; set; }
 
         public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }=new List<DriverVersion>();
 

@@ -30,7 +30,8 @@ namespace Vigus.Web.Controllers
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name,
-                    SupportedDriverVersions = gpu.SupportedDriverVersions
+                    SupportedDriverVersions = gpu.SupportedDriverVersions,
+                    Technologies = gpu.Model.GpuTechnologies
                 };
             return View(await data.ToListAsync());
         }
