@@ -34,16 +34,43 @@
     <div class="container-sm">
         <main role="main" class="pb-3">
             @RenderBody()
+            <partial name="_AboutPartial" />
         </main>
     </div>
-
-    <footer class="border-top footer text-muted bg-black align-items-center">
-        <a asp-controller="Home" asp-action="Index"><img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="150px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';" /></a>
-        <div style="float: right;padding-right: 20px">
-            &copy; @DateTime.Now.Year
+    
+<div class="container-xs">
+<footer class="border-top bg-black py-4 px-5 bottom-0">
+    <div class="row text-light">
+        <div class="col-4">
+            <a asp-controller="Home" asp-action="Index"><img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="230px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';" /></a>
         </div>
-    </footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <div class="col-2 offset-2">
+            <h6 class="fw-bold">Home</h6>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Products">Products</a></li>
+                <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Downloads & Support</a></li>
+            </ul>
+        </div>
+        <div class="col-2">
+            <h6 class="fw-bold">Data (Admin)</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Gpus" asp-action="Index">Gpus</a></li>
+                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="GpuImages" asp-action="Index">Images</a></li>
+                    </ul>
+        </div>
+        <div class="col-2">
+            <h6 class="fw-bold">Search on this website</h6>
+            <input class="form-control"/>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between py-4 my-4 border-top text-light">
+        <p>mertsn</p>
+        <p class="d-flex">&copy; @DateTime.Now.Year</p>
+    </div>
+</footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

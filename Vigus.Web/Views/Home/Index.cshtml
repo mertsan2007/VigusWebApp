@@ -13,7 +13,11 @@
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <button class="btn btn-outline-light px-4 me-md-2">Learn more</button>
-                <a class="btn btn-outline-secondary px-4">Go to downloads & support</a>
+                <button class="btn btn-outline-secondary px-4">
+                    Go to downloads & support <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
@@ -21,7 +25,7 @@
 <div class="container py-4">
     <div class="container-sm">
         <h1 class="fw-bold text-decoration-underline">Products</h1>
-        <partial name="_ProductsPartial"/>
+        <partial name="_ProductsPartial" />
     </div>
     <div class="container-sm my-5">
         <h1 class="fw-bold text-decoration-underline">Technologies</h1>
@@ -49,5 +53,8 @@
                 }
             }
         </div>
+    </div>
+    <div class="container-sm">
+        <h1 class="fw-bold text-decoration-underline">About</h1>
     </div>
 </div>
