@@ -21,6 +21,10 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Gpu>().Property(col => col.ReleaseDate)
             .HasDefaultValueSql("getdate()");
 
+        modelBuilder.Entity<Gpu>().HasMany(col => col.SupportedDriverVersions)
+            .WithMany(col => col.Gpus)
+            .UsingEntity(col => col.ToTable("GpuDriver"));
+
         modelBuilder.Entity<Gpu>().HasIndex(col => col.Name)
             .IsUnique();
 

@@ -3,10 +3,7 @@
 @{
     ViewData["Title"] = "- GPUs";
 }
-
-<h1>Edit</h1>
-
-<h4>Gpu</h4>
+<h4 style="padding-top:10px;">Gpu - Edit</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -58,17 +55,18 @@
                 <span asp-validation-for="ImageId" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <button class="btn btn-outline-dark" asp-controller="Gpus" asp-action="Index">Back to List</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
