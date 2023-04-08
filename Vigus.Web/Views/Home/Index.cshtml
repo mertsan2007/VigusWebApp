@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GpusViewModel>
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "- Vigus";
@@ -31,7 +31,7 @@
         <h1 class="fw-bold text-decoration-underline">Technologies</h1>
         <div class="row">
             @{
-                foreach (var gpu in Model)
+                foreach (var gpu in Model.GpuViewModel)
                 {
                     if (gpu.Technologies.Count <= 0)
                     {

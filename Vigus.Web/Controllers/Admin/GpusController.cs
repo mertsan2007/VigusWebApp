@@ -30,9 +30,8 @@ namespace Vigus.Web.Controllers.Admin
                     PriceInDollars = gpu.Price + "$",
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name,
-                    SupportedDriverVersions = gpu.SupportedDriverVersions,
-                    
+                    ModelName = gpu.Model.Name
+
                 };
             return View(await data.ToListAsync());
         }
@@ -61,6 +60,7 @@ namespace Vigus.Web.Controllers.Admin
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name");
+            ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
             return View();
         }
 
@@ -79,6 +79,7 @@ namespace Vigus.Web.Controllers.Admin
             }
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
             ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name", gpu.ImageId);
+            ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
 

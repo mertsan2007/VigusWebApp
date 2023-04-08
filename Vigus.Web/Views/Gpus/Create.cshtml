@@ -53,7 +53,15 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Image Name</label>
-                <select asp-for="ImageId" class="form-control" asp-items="ViewBag.ImageId"></select>
+                <select asp-for="ImageId" class="form-control" asp-items="ViewBag.ImageId">
+                    <option value="null">Null</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Driver Version</label>
+                <select asp-for="SupportedDriverVersions" class="form-control" asp-items="ViewBag.DriverId">
+                    <option value="null">Null</option>
+                </select>
             </div>
             <hr />
             <div class="form-group">

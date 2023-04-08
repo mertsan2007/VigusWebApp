@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Vigus.Web.Data;
 
 namespace Vigus.Web.Models
 {
@@ -21,6 +20,7 @@ namespace Vigus.Web.Models
         
         [Required]
         [Display(Name = "Release Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ReleaseDate { get; set; }
         
         [Required]
@@ -38,9 +38,9 @@ namespace Vigus.Web.Models
         [Display(Name = "Series Name")]
         public string? ModelName { get; set; }
         
-        public ICollection<GpuTechnology>? Technologies { get; set; }
+        public ICollection<SelectListItem>? Technologies { get; set; }
 
-        public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }=new List<DriverVersion>();
+        public ICollection<SelectListItem>? SupportedDriverVersions { get; set; }
 
         public string? ImageName { get; set; }
     }

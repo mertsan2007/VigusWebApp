@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Vigus.Web.Data.DriverVersion>
+
+@{
+    ViewData["Title"] = "- Vigus";
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>@Html.DisplayNameFor(model=>model.Name)</th>
+        <th>@Html.DisplayNameFor(model=>model.FixedChanges)</th>
+        <th>@Html.DisplayNameFor(model=>model.Gpus)</th>
+        <th>@Html.DisplayNameFor(model=>model.Description)</th>
+        <th>@Html.DisplayNameFor(model=>model.OsVersions)</th>
+        <th>@Html.DisplayNameFor(model=>model.Gpus)</th>
+        <th>@Html.DisplayNameFor(model=>model.KnownIssues)</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <td>@Html.DisplayFor(modelItem=>modelItem)</td>
+    }
+    </tbody>
+</table>

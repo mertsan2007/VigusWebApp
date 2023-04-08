@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
 using Vigus.Web.Models;
@@ -16,8 +17,9 @@ namespace Vigus.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var vigusGpuContext = _context.Gpus.Include(g => g.Model);
-            var data = from gpu in vigusGpuContext
+            var vigusGpu = _context.Gpus.Include(g => g.Model);
+            var vigusDriver = _context.DriverVersions.Include(d => d.OsVersions);
+            var data = from gpu in vigusGpu
                 orderby gpu.Id descending
                 select new GpusViewModel
                 {
@@ -29,11 +31,31 @@ namespace Vigus.Web.Controllers
                     PriceInDollars = gpu.Price + "$",
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name,
-                    SupportedDriverVersions = gpu.SupportedDriverVersions,
-                    Technologies = gpu.Model.GpuTechnologies
+                    ModelName = gpu.Model.Name
                 };
-            return View(await data.ToListAsync());
+            //var data2 = from item in data
+            //            select new HomeViewModel()
+            //            {
+            //                GpuViewModel = item,
+            //                DriverViewModel = vigusDriver
+            //            };
+            HomeViewModel vm=new HomeViewModel();
+            var a = new SelectList(data);
+            vm.GpuViewModel = data;
+            vm.DriverViewModel = from driver in vigusDriver
+                                 orderby driver.Id descending
+                                 select new DriverViewModel()
+                                 {
+                                     Id = driver.Id,
+                                     Description = driver.Description,
+                                     FixedChanges = driver.FixedChanges,
+                                     Gpus = driver.Gpus,
+                                     KnownIssues = driver.KnownIssues,
+                                     Name = driver.Name,
+                                     OsVersions = driver.OsVersions
+
+                                 };
+            return View(vm);
         }
         
         public async Task<IActionResult> Products()
@@ -52,9 +74,14 @@ namespace Vigus.Web.Controllers
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name,
-                    SupportedDriverVersions = gpu.SupportedDriverVersions
                 };
             return View(await data.ToListAsync());
+        }
+
+        public async Task<IActionResult> Support()
+        {
+            var gpudriver = _context.DriverVersions.Include(d => d.OsVersions);
+            return View(await gpudriver.ToListAsync());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Vigus.Web.Data
         public string? Name { get; set; }
 
         [NotMapped]
-        public IFormFile File { get; set; }
+        public IFormFile? File { get; set; }
 
         public virtual ICollection<Gpu>? Gpus { get; set; }
     }

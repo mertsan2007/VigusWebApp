@@ -21,10 +21,6 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Gpu>().Property(col => col.ReleaseDate)
             .HasDefaultValueSql("getdate()");
 
-        modelBuilder.Entity<Gpu>().HasMany(col => col.SupportedDriverVersions)
-            .WithMany(col => col.Gpus)
-            .UsingEntity(col => col.ToTable("GpuDriver"));
-
         modelBuilder.Entity<Gpu>().HasIndex(col => col.Name)
             .IsUnique();
 
@@ -40,6 +36,9 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<DriverVersion>().HasIndex(col => col.Name)
             .IsUnique();
 
+        modelBuilder.Entity<GpuImage>().HasIndex(col => col.Name)
+            .IsUnique();
+
         modelBuilder.Entity<Series>().HasData(
             new Series { Id = 1, Name = "C Series" },
             new Series { Id = 2, Name = "B Series" },
@@ -47,7 +46,7 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<GpuModel>().HasData(
-            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series"},
+            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series" },
             new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Series" },
             new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Series" },
             new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Series" },
@@ -55,19 +54,14 @@ public class VigusGpuContext : DbContext
             new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Series" },
             new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Series" }
             );
-        
+
         modelBuilder.Entity<DriverVersion>().HasData(
-            new DriverVersion{Id = 1, Name = "Vigus Driver Software v1.0.2", Description = "First release for legacy GPUs"}
+            new DriverVersion { Id = 1, Name = "Vigus Driver Software v1.0.2", Description = "First release for legacy GPUs" }
             );
 
-      //  modelBuilder.Entity<GpuTechnology>().HasData(
-      //      new List<GpuTechnology>{
-      //      new GpuTechnology{Id = 1, Name = "test", Description = "text"},
-      //      new GpuTechnology{Id = 2, Name = "technology1", Description = "text", GpuModels = new List<GpuModel>
-      //      {
-      //          new GpuModel { Id = 8, SeriesId = 3, Name = "A 11 Series" }
-      //      }}
-      //      });
+        modelBuilder.Entity<GpuImage>().HasData(
+            new GpuImage { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" }
+        );
     }
-    
+
 }

@@ -50,7 +50,7 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages/Create
         public IActionResult Create()
         {
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id");
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace Vigus.Web.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name", gpuImage.Gpus);
             return View(gpuImage);
         }
 
