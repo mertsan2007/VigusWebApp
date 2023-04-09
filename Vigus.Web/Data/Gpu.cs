@@ -3,7 +3,7 @@
 public class Gpu : EntityBase
 {
     public string? Name { get; set; }
-    public int? Cores { get; set; }
+    public int Cores { get; set; }
     public int Tdp { get; set; }
     public DateTime? ReleaseDate { get; set; }
     public decimal? Price { get; set; }

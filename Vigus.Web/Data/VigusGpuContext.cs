@@ -74,8 +74,8 @@ public class VigusGpuContext : DbContext
             );
 
         //modelBuilder.Entity<GpuTechnology>().HasData(
-        //    new DriverVersion { Id = 1, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics" },
-        //    new DriverVersion { Id = 26, Name = "VigusBoost", Description = "Boost performance with minimal resolution change" }
+        //    new DriverVersion { Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics" },
+        //    new DriverVersion { Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change" }
         //    );
 
         modelBuilder.Entity<Gpu>().HasData(

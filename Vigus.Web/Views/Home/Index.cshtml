@@ -31,15 +31,15 @@
         <h1 class="fw-bold text-decoration-underline">Technologies</h1>
         <div class="row">
             @{
-                foreach (var technology in Model.TechnologyViewModel)
+                if (Model.TechnologyViewModel == null)
                 {
-                    if (technology.Id <= 0)
+                    <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
+                }
+                else
+                {
+                    foreach (var technology in Model.TechnologyViewModel)
                     {
-                        <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
-                        break;
-                    }
-                    else
-                    {
+
                         <div class="col-md">
                             <div class="card">
                                 <img src="" class="card-img-top" alt="@technology.Name">

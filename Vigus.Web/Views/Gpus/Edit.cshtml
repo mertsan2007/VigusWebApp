@@ -22,6 +22,7 @@
             <div class="form-group">
                 <label asp-for="Tdp" class="control-label"></label>
                 <input asp-for="Tdp" class="form-control" />
+                <span class="input-group-text">W</span>
                 <span asp-validation-for="Tdp" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,33 +33,38 @@
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
+                <span class="input-group-text">$</span>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MemorySize" class="control-label"></label>
                 <input asp-for="MemorySize" class="form-control" />
+                <span class="input-group-text">GB</span>
                 <span asp-validation-for="MemorySize" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ModelId" class="control-label"></label>
+                <label class="control-label">Model Name</label>
                 <select asp-for="ModelId" class="form-control" asp-items="ViewBag.ModelId"></select>
-                <span asp-validation-for="ModelId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageId" class="control-label"></label>
-                <select asp-for="ImageId" class="form-control"></select>
-                <span asp-validation-for="ImageId" class="text-danger"></span>
+                <label class="control-label">Image Name</label>
+                <select asp-for="ImageId" class="form-control" asp-items="ViewBag.ImageId"></select>
             </div>
-            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label class="control-label">Driver Version</label>
+                <select asp-for="SupportedDriverVersions" class="form-control" asp-items="ViewBag.DriverId">
+                    <option value="null">Null</option>
+                </select>
+            </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <button class="btn btn-outline-dark" asp-controller="Gpus" asp-action="Index">Back to List</button>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <button class="btn btn-outline-dark" asp-action="Index">Back to List</button>
             </div>
         </form>
     </div>

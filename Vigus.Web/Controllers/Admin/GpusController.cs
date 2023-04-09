@@ -82,7 +82,6 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
-
         // GET: Gpus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -96,7 +95,9 @@ namespace Vigus.Web.Controllers.Admin
             {
                 return NotFound();
             }
-            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Id", gpu.ModelId);
+            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
+            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
+            ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
 
@@ -133,6 +134,8 @@ namespace Vigus.Web.Controllers.Admin
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Id", gpu.ModelId);
+            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
+            ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
 

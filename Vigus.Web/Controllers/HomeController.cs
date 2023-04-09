@@ -15,6 +15,7 @@ namespace Vigus.Web.Controllers
             _context = context;
         }
 
+        public HomeViewModel vm = new();
         public async Task<IActionResult> Index()
         {
             var vigusGpu = _context.Gpus.Include(g => g.Model);
@@ -34,8 +35,6 @@ namespace Vigus.Web.Controllers
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name
                 };
-            HomeViewModel vm=new HomeViewModel();
-            var a = new SelectList(data);
             vm.GpuViewModel = data;
             vm.DriverViewModel = from driver in vigusDriver
                                  orderby driver.Id descending
@@ -52,7 +51,6 @@ namespace Vigus.Web.Controllers
             vm.TechnologyViewModel = vigusTechnology.OrderByDescending(x => x.Id);
             return View(vm);
         }
-        
         public async Task<IActionResult> Products()
         {
             var vigusGpuContext = _context.Gpus.Include(g => g.Model);
@@ -70,7 +68,10 @@ namespace Vigus.Web.Controllers
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name,
                 };
-            return View(await data.ToListAsync());
+            vm.GpuViewModel=data;
+            vm.TechnologyViewModel = null;
+            vm.DriverViewModel = null;
+            return View(vm);
         }
 
         public async Task<IActionResult> Support()
