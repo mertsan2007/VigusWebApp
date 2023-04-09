@@ -19,6 +19,7 @@ namespace Vigus.Web.Controllers
         {
             var vigusGpu = _context.Gpus.Include(g => g.Model);
             var vigusDriver = _context.DriverVersions.Include(d => d.OsVersions);
+            var vigusTechnology = _context.GpuTechnologies.Include(t => t.GpuModels);
             var data = from gpu in vigusGpu
                 orderby gpu.Id descending
                 select new GpusViewModel
@@ -33,12 +34,6 @@ namespace Vigus.Web.Controllers
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name
                 };
-            //var data2 = from item in data
-            //            select new HomeViewModel()
-            //            {
-            //                GpuViewModel = item,
-            //                DriverViewModel = vigusDriver
-            //            };
             HomeViewModel vm=new HomeViewModel();
             var a = new SelectList(data);
             vm.GpuViewModel = data;
@@ -51,10 +46,10 @@ namespace Vigus.Web.Controllers
                                      FixedChanges = driver.FixedChanges,
                                      Gpus = driver.Gpus,
                                      KnownIssues = driver.KnownIssues,
-                                     Name = driver.Name,
+                                     Name = "Vigus Driver Software "+driver.Name,
                                      OsVersions = driver.OsVersions
-
                                  };
+            vm.TechnologyViewModel = vigusTechnology.OrderByDescending(x => x.Id);
             return View(vm);
         }
         

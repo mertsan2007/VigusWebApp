@@ -31,9 +31,9 @@
         <h1 class="fw-bold text-decoration-underline">Technologies</h1>
         <div class="row">
             @{
-                foreach (var gpu in Model.GpuViewModel)
+                foreach (var technology in Model.TechnologyViewModel)
                 {
-                    if (gpu.Technologies.Count <= 0)
+                    if (technology.Id <= 0)
                     {
                         <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
                         break;
@@ -42,10 +42,10 @@
                     {
                         <div class="col-md">
                             <div class="card">
-                                <img src="" class="card-img-top" alt="@gpu.ModelName">
+                                <img src="" class="card-img-top" alt="@technology.Name">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <h5 class="card-title">@technology.Name</h5>
+                                    <p class="card-text">@technology.Description</p>
                                 </div>
                             </div>
                         </div>

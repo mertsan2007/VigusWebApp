@@ -5,7 +5,7 @@ public class Gpu : EntityBase
     public string? Name { get; set; }
     public int? Cores { get; set; }
     public int Tdp { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public DateTime? ReleaseDate { get; set; }
     public decimal? Price { get; set; }
     public int MemorySize { get; set; }
     public string? Description { get; set; }
@@ -16,5 +16,5 @@ public class Gpu : EntityBase
     public virtual ICollection<DriverVersion>? SupportedDriverVersions { get; set; }
 
     public int ImageId { get; set; }
-    public virtual GpuImage? Image { get; set; }
+    public virtual Image? Image { get; set; }
 }

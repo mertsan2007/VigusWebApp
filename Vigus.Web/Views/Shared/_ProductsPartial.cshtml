@@ -1,8 +1,8 @@
-﻿@model IEnumerable<GpusViewModel>
+﻿@model HomeViewModel
 
 <div class="row my-4">
     @{
-        foreach (var gpu in Model)
+        foreach (var gpu in Model.GpuViewModel)
         {
             if (gpu.Id <= 0)
             {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vigus.Web.Data
 {
-    public class GpuImage:EntityBase
+    public class Image:EntityBase
     {
         [Required]
         public string? Title { get; set; }

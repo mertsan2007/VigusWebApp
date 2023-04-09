@@ -24,19 +24,19 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages
         public async Task<IActionResult> Index()
         {
-            var vigusGpuContext = _context.GpuImages.Include(g => g.Gpus);
+            var vigusGpuContext = _context.Images.Include(g => g.Gpus);
             return View(await vigusGpuContext.ToListAsync());
         }
 
         // GET: GpuImages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.GpuImages == null)
+            if (id == null || _context.Images == null)
             {
                 return NotFound();
             }
 
-            var gpuImage = await _context.GpuImages
+            var gpuImage = await _context.Images
                 .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gpuImage == null)
@@ -59,7 +59,7 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,File,GpuId,Id")] GpuImage gpuImage)
+        public async Task<IActionResult> Create([Bind("Title,File,GpuId,Id")] Image gpuImage)
         {
             if (ModelState.IsValid)
             {
@@ -83,12 +83,12 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.GpuImages == null)
+            if (id == null || _context.Images == null)
             {
                 return NotFound();
             }
 
-            var gpuImage = await _context.GpuImages.FindAsync(id);
+            var gpuImage = await _context.Images.FindAsync(id);
             if (gpuImage == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Name,GpuId,Id")] GpuImage gpuImage)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Name,GpuId,Id")] Image gpuImage)
         {
             if (id != gpuImage.Id)
             {
@@ -136,12 +136,12 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.GpuImages == null)
+            if (id == null || _context.Images == null)
             {
                 return NotFound();
             }
 
-            var gpuImage = await _context.GpuImages
+            var gpuImage = await _context.Images
                 .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gpuImage == null)
@@ -157,17 +157,17 @@ namespace Vigus.Web.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.GpuImages == null)
+            if (_context.Images == null)
             {
                 return Problem("Entity set 'VigusGpuContext.GpuImages'  is null.");
             }
-            var gpuImage = await _context.GpuImages.FindAsync(id);
+            var gpuImage = await _context.Images.FindAsync(id);
             var imgpath = Path.Combine(_hostEnvironment.WebRootPath, "Images/UserUploads", gpuImage.Name);
             if (gpuImage != null)
             {
                 if(System.IO.File.Exists(imgpath))
                 {System.IO.File.Delete(imgpath); }
-                _context.GpuImages.Remove(gpuImage);
+                _context.Images.Remove(gpuImage);
             }
             
             await _context.SaveChangesAsync();
@@ -176,7 +176,7 @@ namespace Vigus.Web.Controllers.Admin
 
         private bool GpuImageExists(int id)
         {
-          return (_context.GpuImages?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Images?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Vigus.Web.Controllers.Admin
         public IActionResult Create()
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-            ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name");
+            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
             return View();
         }
@@ -78,7 +78,7 @@ namespace Vigus.Web.Controllers.Admin
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
-            ViewData["ImageId"] = new SelectList(_context.GpuImages, "Id", "Name", gpu.ImageId);
+            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
