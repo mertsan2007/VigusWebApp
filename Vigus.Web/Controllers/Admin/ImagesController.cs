@@ -10,12 +10,12 @@ using Vigus.Web.Data;
 
 namespace Vigus.Web.Controllers.Admin
 {
-    public class GpuImagesController : Controller
+    public class ImagesController : Controller
     {
         private readonly VigusGpuContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public GpuImagesController(VigusGpuContext context, IWebHostEnvironment hostEnvironment)
+        public ImagesController(VigusGpuContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
@@ -36,15 +36,15 @@ namespace Vigus.Web.Controllers.Admin
                 return NotFound();
             }
 
-            var gpuImage = await _context.Images
+            var image = await _context.Images
                 .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (gpuImage == null)
+            if (image == null)
             {
                 return NotFound();
             }
 
-            return View(gpuImage);
+            return View(image);
         }
 
         // GET: GpuImages/Create
@@ -59,25 +59,25 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,File,GpuId,Id")] Image gpuImage)
+        public async Task<IActionResult> Create([Bind("Title,File,GpuId,Id")] Image image)
         {
             if (ModelState.IsValid)
             {
                 string rootPath = _hostEnvironment.WebRootPath;
-                gpuImage.Name = Path.GetFileName(gpuImage.File.FileName);
+                image.Name = Path.GetFileName(image.File.FileName);
 
-                string path = Path.Combine(rootPath + "/Images/UserUploads",gpuImage.Name);
+                string path = Path.Combine(rootPath + "/Images/UserUploads",image.Name);
                 using (var filestream=new FileStream(path,FileMode.Create))
                 {
-                    await gpuImage.File.CopyToAsync(filestream);
+                    await image.File.CopyToAsync(filestream);
                 }
 
-                _context.Add(gpuImage);
+                _context.Add(image);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name", gpuImage.Gpus);
-            return View(gpuImage);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name", image.Gpus);
+            return View(image);
         }
 
         // GET: GpuImages/Edit/5
@@ -88,13 +88,13 @@ namespace Vigus.Web.Controllers.Admin
                 return NotFound();
             }
 
-            var gpuImage = await _context.Images.FindAsync(id);
-            if (gpuImage == null)
+            var image = await _context.Images.FindAsync(id);
+            if (image == null)
             {
                 return NotFound();
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
-            return View(gpuImage);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", image.Gpus);
+            return View(image);
         }
 
         // POST: GpuImages/Edit/5
@@ -102,9 +102,9 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Name,GpuId,Id")] Image gpuImage)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Name,GpuId,Id")] Image image)
         {
-            if (id != gpuImage.Id)
+            if (id != image.Id)
             {
                 return NotFound();
             }
@@ -113,12 +113,12 @@ namespace Vigus.Web.Controllers.Admin
             {
                 try
                 {
-                    _context.Update(gpuImage);
+                    _context.Update(image);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GpuImageExists(gpuImage.Id))
+                    if (!GpuImageExists(image.Id))
                     {
                         return NotFound();
                     }
@@ -129,8 +129,8 @@ namespace Vigus.Web.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", gpuImage.Gpus);
-            return View(gpuImage);
+            ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", image.Gpus);
+            return View(image);
         }
 
         // GET: GpuImages/Delete/5
@@ -141,15 +141,15 @@ namespace Vigus.Web.Controllers.Admin
                 return NotFound();
             }
 
-            var gpuImage = await _context.Images
+            var image = await _context.Images
                 .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (gpuImage == null)
+            if (image == null)
             {
                 return NotFound();
             }
 
-            return View(gpuImage);
+            return View(image);
         }
 
         // POST: GpuImages/Delete/5
@@ -161,13 +161,13 @@ namespace Vigus.Web.Controllers.Admin
             {
                 return Problem("Entity set 'VigusGpuContext.GpuImages'  is null.");
             }
-            var gpuImage = await _context.Images.FindAsync(id);
-            var imgpath = Path.Combine(_hostEnvironment.WebRootPath, "Images/UserUploads", gpuImage.Name);
-            if (gpuImage != null)
+            var image = await _context.Images.FindAsync(id);
+            var imgpath = Path.Combine(_hostEnvironment.WebRootPath, "Images/UserUploads", image.Name);
+            if (image != null)
             {
                 if(System.IO.File.Exists(imgpath))
                 {System.IO.File.Delete(imgpath); }
-                _context.Images.Remove(gpuImage);
+                _context.Images.Remove(image);
             }
             
             await _context.SaveChangesAsync();

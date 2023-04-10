@@ -1,12 +1,9 @@
 ﻿@model Vigus.Web.Data.Image
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "- Images";
 }
-
-<h1>Create</h1>
-
-<h4>GpuImage</h4>
+<h4 style="padding-top:10px;">Image - Create</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,16 +16,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="File" class="control-label"></label>
-                <input asp-for="File" class="form-control" accept="image/*"/>
+                <input asp-for="File"  accept="image/*" />
                 <span asp-validation-for="File" class="text-danger"></span>
             </div>
-        <!-- <div class="form-group">
-            <label asp-for="Gpus" class="control-label"></label>
-            <select asp-for="Gpus" class="form-control" asp-items="ViewBag.GpuId">
-                <option value="0">Null</option>
-            </select>
-        </div>
-            -->
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -37,9 +28,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
