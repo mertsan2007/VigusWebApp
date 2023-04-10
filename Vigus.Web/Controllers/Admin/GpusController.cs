@@ -15,6 +15,20 @@ namespace Vigus.Web.Controllers.Admin
             _context = context;
         }
 
+        //public async Task<IActionResult> Search(GpuSearchModel model)
+        //{
+        //    ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
+        //    ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
+        //    ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
+        //
+        //    var gpus=_context.Gpus.Include(g=>g.Model)
+        //        .Where(it=>
+        //            (String.IsNullOrEmpty(model.Name) || it.Name.Contains(model.Name)) &&
+        //            it.ModelId == model.ModelId);
+        //             
+        //    return View("Index",await gpus.ToListAsync());
+        //}
+
         // GET: Gpus
         public async Task<IActionResult> Index()
         {
@@ -31,7 +45,6 @@ namespace Vigus.Web.Controllers.Admin
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
                     ModelName = gpu.Model.Name
-
                 };
             return View(await data.ToListAsync());
         }
