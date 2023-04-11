@@ -9,6 +9,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Filter" method="post" class="p-2 rounded-3" style="background-color: #ccc">
+    <div class="row">
+        <div class="col"><input name="Name" class="form-control" placeholder="Name"/></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col">
+            <input type="submit" value="Search" class="btn btn-primary"/>
+            <button asp-action="Index" class="btn btn-danger">Clear Filters</button>
+        </div>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
