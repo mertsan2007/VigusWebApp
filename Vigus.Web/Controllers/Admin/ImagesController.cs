@@ -51,6 +51,7 @@ namespace Vigus.Web.Controllers.Admin
         public IActionResult Create()
         {
             ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
+            ViewData["TechnologyId"] = new SelectList(_context.GpuTechnologies, "Id", "Name");
             return View();
         }
 
@@ -59,15 +60,15 @@ namespace Vigus.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,File,GpuId,Id")] Image image)
+        public async Task<IActionResult> Create([Bind("Title,File,Gpus,Technologies,Id")] Image image)
         {
             if (ModelState.IsValid)
             {
                 string rootPath = _hostEnvironment.WebRootPath;
                 image.Name = Path.GetFileName(image.File.FileName);
 
-                string path = Path.Combine(rootPath + "/Images/UserUploads",image.Name);
-                using (var filestream=new FileStream(path,FileMode.Create))
+                string path = Path.Combine(rootPath + "/Images/UserUploads", image.Name);
+                using (var filestream = new FileStream(path, FileMode.Create))
                 {
                     await image.File.CopyToAsync(filestream);
                 }
@@ -77,6 +78,7 @@ namespace Vigus.Web.Controllers.Admin
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name", image.Gpus);
+            ViewData["TechnologyId"] = new SelectList(_context.GpuTechnologies, "Id", "Name", image.Technologies);
             return View(image);
         }
 
@@ -165,18 +167,18 @@ namespace Vigus.Web.Controllers.Admin
             var imgpath = Path.Combine(_hostEnvironment.WebRootPath, "Images/UserUploads", image.Name);
             if (image != null)
             {
-                if(System.IO.File.Exists(imgpath))
-                {System.IO.File.Delete(imgpath); }
+                if (System.IO.File.Exists(imgpath))
+                { System.IO.File.Delete(imgpath); }
                 _context.Images.Remove(image);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GpuImageExists(int id)
         {
-          return (_context.Images?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Images?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

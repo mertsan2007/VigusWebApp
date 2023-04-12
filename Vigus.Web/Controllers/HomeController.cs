@@ -33,7 +33,8 @@ namespace Vigus.Web.Controllers
                     PriceInDollars = gpu.Price + "$",
                     ReleaseDate = gpu.ReleaseDate,
                     TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name
+                    ModelName = gpu.Model.Name,
+                    ImageName = gpu.Image.Name
                 };
             vm.GpuViewModel = data;
             vm.DriverViewModel = from driver in vigusDriver

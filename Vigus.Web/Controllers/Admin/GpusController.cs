@@ -20,47 +20,48 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
-        
-            var gpus=_context.Gpus.Include(g=>g.Model)
-                .Where(it=>
+
+            var gpus = _context.Gpus.Include(g => g.Model)
+                .Where(it =>
                     (String.IsNullOrEmpty(model.Name) || it.Name.Contains(model.Name)) &&
                     it.ModelId == model.ModelId);
 
-            var data= from gpu in gpus
-                orderby gpu.Name
-                select new GpusViewModel
-                {
-                    Id = gpu.Id,
-                    Cores = gpu.Cores,
-                    Description = gpu.Description,
-                    FullGpuName = $"Vigus {gpu.Name}",
-                    MemorySizeInGb = gpu.MemorySize + "GB",
-                    PriceInDollars = gpu.Price + "$",
-                    ReleaseDate = gpu.ReleaseDate,
-                    TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name
-                };
+            var data = from gpu in gpus
+                       orderby gpu.Name
+                       select new GpusViewModel
+                       {
+                           Id = gpu.Id,
+                           Cores = gpu.Cores,
+                           Description = gpu.Description,
+                           FullGpuName = $"Vigus {gpu.Name}",
+                           MemorySizeInGb = gpu.MemorySize + "GB",
+                           PriceInDollars = gpu.Price + "$",
+                           ReleaseDate = gpu.ReleaseDate,
+                           TdpInWatts = gpu.Tdp + "W",
+                           ModelName = gpu.Model.Name
+                       };
 
-            return View("Index",await data.ToListAsync());
+            return View("Index", await data.ToListAsync());
         }
 
         // GET: Gpus
         public async Task<IActionResult> Index()
         {
             var data = from gpu in _context.Gpus.Include(g => g.Model)
-                orderby gpu.Name
-                select new GpusViewModel
-                {
-                    Id = gpu.Id,
-                    Cores = gpu.Cores,
-                    Description = gpu.Description,
-                    FullGpuName = $"Vigus {gpu.Name}",
-                    MemorySizeInGb = gpu.MemorySize + "GB",
-                    PriceInDollars = gpu.Price + "$",
-                    ReleaseDate = gpu.ReleaseDate,
-                    TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name
-                };
+                       orderby gpu.Name
+                       select new GpusViewModel
+                       {
+                           Id = gpu.Id,
+                           Cores = gpu.Cores,
+                           Description = gpu.Description,
+                           FullGpuName = $"Vigus {gpu.Name}",
+                           MemorySizeInGb = gpu.MemorySize + "GB",
+                           PriceInDollars = gpu.Price + "$",
+                           ReleaseDate = gpu.ReleaseDate,
+                           TdpInWatts = gpu.Tdp + "W",
+                           ModelName = gpu.Model.Name,
+                           ImageName = gpu.Image.Name
+                       };
             return View(await data.ToListAsync());
         }
 
@@ -200,14 +201,14 @@ namespace Vigus.Web.Controllers.Admin
             {
                 _context.Gpus.Remove(gpu);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GpuExists(int id)
         {
-          return (_context.Gpus?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Gpus?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

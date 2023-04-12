@@ -19,9 +19,9 @@
                 <input asp-for="Cores" class="form-control" />
                 <span asp-validation-for="Cores" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Tdp" class="control-label"></label>
-                <input asp-for="Tdp" class="form-control" />
+            <label asp-for="Tdp" class="form-label" id="watt"></label>
+            <div class="input-group">
+                <input asp-for="Tdp" class="form-control" aria-describedby="watt" />
                 <span class="input-group-text">W</span>
                 <span asp-validation-for="Tdp" class="text-danger"></span>
             </div>
@@ -30,15 +30,15 @@
                 <input asp-for="ReleaseDate" class="form-control" />
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+            <label asp-for="Price" class="form-label" id="s"></label>
+            <div class="input-group">
+                <input asp-for="Price" class="form-control" aria-describedby="s" />
                 <span class="input-group-text">$</span>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MemorySize" class="control-label"></label>
-                <input asp-for="MemorySize" class="form-control" />
+            <label asp-for="MemorySize" class="form-label" id="gb"></label>
+            <div class="input-group">
+                <input asp-for="MemorySize" class="form-control" aria-describedby="gb" />
                 <span class="input-group-text">GB</span>
                 <span asp-validation-for="MemorySize" class="text-danger"></span>
             </div>
@@ -48,7 +48,7 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Model Name</label>
+                <label class="control-label">Series Name</label>
                 <select asp-for="ModelId" class="form-control" asp-items="ViewBag.ModelId"></select>
             </div>
             <div class="form-group">

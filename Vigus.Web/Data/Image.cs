@@ -7,13 +7,14 @@ namespace Vigus.Web.Data
     {
         [Required]
         public string? Title { get; set; }
-
-        [Required]
+        
         public string? Name { get; set; }
 
         [NotMapped]
         public IFormFile? File { get; set; }
 
         public virtual ICollection<Gpu>? Gpus { get; set; }
+
+        public virtual ICollection<GpuTechnology>? Technologies { get; set; }
     }
 }
