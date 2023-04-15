@@ -81,9 +81,15 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Gpu>().HasData(
             new Gpu
             {
-                Id = 1, Name = "C98X", ModelId = 4,
-                Description = "High-end GPU that is ready to game and compute. Built by Vigus.", Cores = 6000,
-                ImageId = 1, MemorySize = 18, Price = 899.99m, Tdp = 300
+                Id = 1,
+                Name = "C98X",
+                ModelId = 4,
+                Description = "High-end GPU that is ready to game and compute. Built by Vigus.",
+                Cores = 6000,
+                ImageId = 1,
+                MemorySize = 18,
+                Price = 899.99m,
+                Tdp = 300
             }
             );
     }

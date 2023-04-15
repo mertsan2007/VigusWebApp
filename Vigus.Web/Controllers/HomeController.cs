@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
 using Vigus.Web.Models;
@@ -22,20 +21,20 @@ namespace Vigus.Web.Controllers
             var vigusDriver = _context.DriverVersions.Include(d => d.OsVersions);
             var vigusTechnology = _context.GpuTechnologies.Include(t => t.GpuModels);
             var data = from gpu in vigusGpu
-                orderby gpu.Id descending
-                select new GpusViewModel
-                {
-                    Id = gpu.Id,
-                    Cores = gpu.Cores,
-                    Description = gpu.Description,
-                    FullGpuName = $"Vigus {gpu.Name}",
-                    MemorySizeInGb = gpu.MemorySize + "GB",
-                    PriceInDollars = gpu.Price + "$",
-                    ReleaseDate = gpu.ReleaseDate,
-                    TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name,
-                    ImageName = gpu.Image.Name
-                };
+                       orderby gpu.Id descending
+                       select new GpusViewModel
+                       {
+                           Id = gpu.Id,
+                           Cores = gpu.Cores,
+                           Description = gpu.Description,
+                           FullGpuName = $"Vigus {gpu.Name}",
+                           MemorySizeInGb = gpu.MemorySize + "GB",
+                           PriceInDollars = gpu.Price + "$",
+                           ReleaseDate = gpu.ReleaseDate,
+                           TdpInWatts = gpu.Tdp + "W",
+                           ModelName = gpu.Model.Name,
+                           ImageName = gpu.Image.Name
+                       };
             vm.GpuViewModel = data;
             vm.DriverViewModel = from driver in vigusDriver
                                  orderby driver.Id descending
@@ -46,7 +45,7 @@ namespace Vigus.Web.Controllers
                                      FixedChanges = driver.FixedChanges,
                                      Gpus = driver.Gpus,
                                      KnownIssues = driver.KnownIssues,
-                                     Name = "Vigus Driver Software "+driver.Name,
+                                     Name = "Vigus Driver Software " + driver.Name,
                                      OsVersions = driver.OsVersions
                                  };
             vm.TechnologyViewModel = vigusTechnology.OrderByDescending(x => x.Id);
@@ -56,20 +55,21 @@ namespace Vigus.Web.Controllers
         {
             var vigusGpuContext = _context.Gpus.Include(g => g.Model);
             var data = from gpu in vigusGpuContext
-                orderby gpu.Id descending
-                select new GpusViewModel
-                {
-                    Id = gpu.Id,
-                    Cores = gpu.Cores,
-                    Description = gpu.Description,
-                    FullGpuName = $"Vigus {gpu.Name}",
-                    MemorySizeInGb = gpu.MemorySize + "GB",
-                    PriceInDollars = gpu.Price + "$",
-                    ReleaseDate = gpu.ReleaseDate,
-                    TdpInWatts = gpu.Tdp + "W",
-                    ModelName = gpu.Model.Name,
-                };
-            vm.GpuViewModel=data;
+                       orderby gpu.Id descending
+                       select new GpusViewModel
+                       {
+                           Id = gpu.Id,
+                           Cores = gpu.Cores,
+                           Description = gpu.Description,
+                           FullGpuName = $"Vigus {gpu.Name}",
+                           MemorySizeInGb = gpu.MemorySize + "GB",
+                           PriceInDollars = gpu.Price + "$",
+                           ReleaseDate = gpu.ReleaseDate,
+                           TdpInWatts = gpu.Tdp + "W",
+                           ModelName = gpu.Model.Name,
+                           ImageName = gpu.Image.Name
+                       };
+            vm.GpuViewModel = data;
             vm.TechnologyViewModel = null;
             vm.DriverViewModel = null;
             return View(vm);
