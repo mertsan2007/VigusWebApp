@@ -61,7 +61,8 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<Image>().HasData(
-            new Image { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" }
+            new Image { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" },
+            new Image { Id = 2, Name = "defaulttechnology.png", Title = "Default TechnologyImage" }
             );
 
         modelBuilder.Entity<OsVersion>().HasData(

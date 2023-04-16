@@ -15,7 +15,7 @@ namespace Vigus.Web.Controllers.Admin
             _context = context;
         }
 
-        public async Task<IActionResult> Filter(GpuFilterModel model)
+        public async Task<IActionResult> Filter(GpuFilterModel filterModel)
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
@@ -23,8 +23,8 @@ namespace Vigus.Web.Controllers.Admin
 
             var gpus = _context.Gpus.Include(g => g.Model)
                 .Where(it =>
-                    (String.IsNullOrEmpty(model.Name) || it.Name.Contains(model.Name)) &&
-                    it.ModelId == model.ModelId);
+                    (String.IsNullOrEmpty(filterModel.Name) || it.Name.Contains(filterModel.Name)) &&
+                    it.ModelId == filterModel.ModelId);
 
             var data = from gpu in gpus
                        orderby gpu.Name

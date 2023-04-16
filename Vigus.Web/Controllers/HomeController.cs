@@ -18,9 +18,8 @@ namespace Vigus.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var vigusGpu = _context.Gpus.Include(g => g.Model);
-            var vigusDriver = _context.DriverVersions.Include(d => d.OsVersions);
             var vigusTechnology = _context.GpuTechnologies.Include(t => t.GpuModels);
-            var data = from gpu in vigusGpu
+            var gpuviewdata = from gpu in vigusGpu
                        orderby gpu.Id descending
                        select new GpusViewModel
                        {
@@ -35,19 +34,8 @@ namespace Vigus.Web.Controllers
                            ModelName = gpu.Model.Name,
                            ImageName = gpu.Image.Name
                        };
-            vm.GpuViewModel = data;
-            vm.DriverViewModel = from driver in vigusDriver
-                                 orderby driver.Id descending
-                                 select new DriverViewModel()
-                                 {
-                                     Id = driver.Id,
-                                     Description = driver.Description,
-                                     FixedChanges = driver.FixedChanges,
-                                     Gpus = driver.Gpus,
-                                     KnownIssues = driver.KnownIssues,
-                                     Name = "Vigus Driver Software " + driver.Name,
-                                     OsVersions = driver.OsVersions
-                                 };
+            vm.GpuViewModel = gpuviewdata;
+            vm.DriverViewModel = null;
             vm.TechnologyViewModel = vigusTechnology.OrderByDescending(x => x.Id);
             return View(vm);
         }

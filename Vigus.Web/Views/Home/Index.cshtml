@@ -43,16 +43,22 @@
                 {
                     foreach (var technology in Model.TechnologyViewModel)
                     {
-
                         <div class="col-md">
-                            <div class="card">
-                                <img src="" class="card-img-top" alt="@technology.Name">
+                            <div class="card" style="width: 35rem;">
+                                <img src="@(technology.Image == null ? "/Images/UserUploads/defaulttechnology.png" : "~/Images/UserUploads/"+@technology.Image.Name)" class="card-img-top h-100" alt="@technology.Name">
                                 <div class="card-body">
                                     <h5 class="card-title">@technology.Name</h5>
                                     <p class="card-text">@technology.Description</p>
                                 </div>
                             </div>
-                        </div>
+                           <!-- <div class="card text-white" style="width: 35rem">
+                                <img src="~/Images/UserUploads/defaulttechnology.png" class="card-img">
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                            </div>-->
+                        </div> 
                     }
                 }
             }
