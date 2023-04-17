@@ -43,6 +43,7 @@
                 {
                     foreach (var technology in Model.TechnologyViewModel)
                     {
+
                         <div class="col-md">
                             <div class="card text-white" style="width: 35rem">
                                 <img src="@(technology.Image == null ? "/Images/UserUploads/defaulttechnology.png" : "~/Images/UserUploads/"+@technology.Image.Name)" class="card-img-top h-100" alt="@technology.Name">
