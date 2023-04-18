@@ -12,6 +12,7 @@ namespace Vigus.Web.Models
         public string? FullGpuName { get; set; }
         
         [Required]
+        [Range(1,100)]
         public int? Cores { get; set; }
         
         [Required]
@@ -20,7 +21,6 @@ namespace Vigus.Web.Models
         
         [Required]
         [Display(Name = "Release Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ReleaseDate { get; set; }
         
         [Required]
@@ -37,11 +37,9 @@ namespace Vigus.Web.Models
         [Required]
         [Display(Name = "Series Name")]
         public string? ModelName { get; set; }
-        
-        public ICollection<SelectListItem>? Technologies { get; set; }
 
-        public ICollection<SelectListItem>? SupportedDriverVersions { get; set; }
-
+        [Required]
+        [Display(Name = "Image Name")]
         public string? ImageName { get; set; }
     }
 }
