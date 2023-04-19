@@ -11,10 +11,11 @@ namespace Vigus.Web.Models
         public string? Name { get; set; }
 
         [Required]
-        [Range(1, 100)]
+        [Range(1, 5000)]
         public int? Cores { get; set; }
 
         [Required]
+        [Range(1, 700)]
         public int? Tdp { get; set; }
 
         [Required]
@@ -23,13 +24,14 @@ namespace Vigus.Web.Models
         public DateTime? ReleaseDate { get; set; }
 
         [Required]
+        [Range(1, 3000)]
         public decimal? Price { get; set; }
 
         [Required]
         [Display(Name = "Memory Size")]
+        [Range(3, 30)]
         public int? MemorySize { get; set; }
-
-        [Required]
+        
         public string? Description { get; set; }
 
         [Required]

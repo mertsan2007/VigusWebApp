@@ -32,7 +32,7 @@ namespace Vigus.Web.Controllers.Admin
                        orderby gpu.Name
                        select new GpusViewModel
                        {
-                           Id = gpu.Id,
+                           Id = gpu.Id
                            //Cores = gpu.Cores,
                            //Description = gpu.Description,
                            //FullGpuName = $"Vigus {gpu.Name}",
@@ -43,7 +43,7 @@ namespace Vigus.Web.Controllers.Admin
                            //ModelName = gpu.Model.Name
                        };
 
-            return View("index", await data.ToListAsync());
+            return View("Index", await data.ToListAsync());
         }
 
         // GET: Gpus
@@ -92,17 +92,14 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
-            var gpu = _context.Gpus.Include(g => g.Model);
             return View();
         }
-
-        // POST: Gpus/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu, GpuCreateViewModel vm)
         {
+            SelectListItem item = new();
             vm.Id = gpu.Id;
             vm.Name = gpu.Name;
             vm.Description = gpu.Description;
@@ -113,6 +110,8 @@ namespace Vigus.Web.Controllers.Admin
             vm.ModelId = gpu.ModelId;
             vm.Price = gpu.Price;
             vm.ReleaseDate = gpu.ReleaseDate;
+            item.Text = gpu.SupportedDriverVersions.ToString();
+            vm.SupportedDriverVersions = item;
             if (ModelState.IsValid)
             {
                 _context.Add(gpu);
@@ -122,7 +121,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
-            return View(gpu);
+            return View(vm);
         }
         // GET: Gpus/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -144,8 +143,6 @@ namespace Vigus.Web.Controllers.Admin
         }
 
         // POST: Gpus/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
