@@ -94,12 +94,11 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu, GpuCreateViewModel vm)
         {
-            SelectListItem item = new();
             vm.Id = gpu.Id;
             vm.Name = gpu.Name;
             vm.Description = gpu.Description;
@@ -110,8 +109,7 @@ namespace Vigus.Web.Controllers.Admin
             vm.ModelId = gpu.ModelId;
             vm.Price = gpu.Price;
             vm.ReleaseDate = gpu.ReleaseDate;
-            item.Text = gpu.SupportedDriverVersions.ToString();
-            vm.SupportedDriverVersions = item;
+            vm.SupportedDriverVersions = gpu.SupportedDriverVersions;
             if (ModelState.IsValid)
             {
                 _context.Add(gpu);

@@ -16,9 +16,9 @@ namespace Vigus.Web.Controllers.Admin
         // GET: DriverVersions
         public async Task<IActionResult> Index()
         {
-              return _context.DriverVersions != null ? 
-                          View(await _context.DriverVersions.ToListAsync()) :
-                          Problem("Entity set 'VigusGpuContext.DriverVersions'  is null.");
+            return _context.DriverVersions != null ?
+                        View(await _context.DriverVersions.ToListAsync()) :
+                        Problem("Entity set 'VigusGpuContext.DriverVersions'  is null.");
         }
 
         // GET: DriverVersions/Details/5
@@ -144,14 +144,14 @@ namespace Vigus.Web.Controllers.Admin
             {
                 _context.DriverVersions.Remove(driverVersion);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DriverVersionExists(int id)
         {
-          return (_context.DriverVersions?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.DriverVersions?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Vigus.Web.Data
 {
-    public class OsVersion:EntityBase
+    public class OsVersion : EntityBase
     {
         public string? Name { get; set; }
 

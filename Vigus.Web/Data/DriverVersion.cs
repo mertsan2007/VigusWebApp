@@ -9,7 +9,7 @@ public class DriverVersion : EntityBase
     public string? KnownIssues { get; set; }
 
     public string? FixedChanges { get; set; }
-   
+
     public virtual ICollection<Gpu>? Gpus { get; set; }
 
     public virtual ICollection<OsVersion>? OsVersions { get; set; }

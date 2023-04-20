@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Vigus.Web.Data;
 
 namespace Vigus.Web.Models
 {
@@ -31,14 +31,14 @@ namespace Vigus.Web.Models
         [Display(Name = "Memory Size")]
         [Range(3, 30)]
         public int? MemorySize { get; set; }
-        
+
         public string? Description { get; set; }
 
         [Required]
         public int? ModelId { get; set; }
 
         [Display(Name = "Driver Versions")]
-        public ICollection<SelectListItem>? SupportedDriverVersions { get; set; }
+        public ICollection<DriverVersion>? SupportedDriverVersions { get; set; }
 
         public int? ImageId { get; set; }
     }

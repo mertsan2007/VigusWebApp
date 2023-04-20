@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vigus.Web.Data
 {
-    public class Image:EntityBase
+    public class Image : EntityBase
     {
         [Required]
         public string? Title { get; set; }
-        
+
         public string? Name { get; set; }
 
         [NotMapped]
