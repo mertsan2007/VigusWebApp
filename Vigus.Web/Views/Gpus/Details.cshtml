@@ -7,56 +7,20 @@
 <h4 style="padding-top:10px;">Gpu - Create</h4>
 <hr />
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cores)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cores)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tdp)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tdp)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MemorySize)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MemorySize)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Model.Id)
-        </dd>
-    </dl>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@("~/Images/UserUploads/"+Model.Image)" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

@@ -33,3 +33,11 @@ html {
 h1, h2, h3, h4, h5, h6 {
     text-underline-offset: 12px;
 }
+
+.rounded-4 {
+    border-radius: 0.5rem !important;
+}
+
+.driverselect-card {
+    background-color: #585858;
+}
