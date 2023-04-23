@@ -64,6 +64,12 @@ namespace Vigus.Web.Controllers
             return View(vm);
         }
 
+        public IActionResult GetGpu(int modelId)
+        {
+            var gpuList = _context.GpuModels.Where(m=>m.Id == modelId).FirstOrDefault().Gpus.Select(g=> new {g.Id, Name = g.Name}).ToList();
+            return Json(gpuList);
+        }
+
         public async Task<IActionResult> Support()
         {
             SupportViewModel svm = new();
@@ -114,6 +120,12 @@ namespace Vigus.Web.Controllers
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
             ViewData["OsId"] = new SelectList(_context.OsVersions, "Id", "Name");
             return View(svm);
+        }
+
+        [HttpPost]
+        public IActionResult Support(SupportViewModel svm)
+        {
+            return View();
         }
     }
 }
