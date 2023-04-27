@@ -75,15 +75,13 @@ namespace Vigus.Web.Controllers.Admin
                 return NotFound();
             }
 
-            var gpu = await _context.Gpus
-                .Include(g => g.Model)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (gpu == null)
+            var data =await _context.Gpus.Include(g => g.Model).FirstOrDefaultAsync(m => m.Id == id);
+            if (data == null)
             {
                 return NotFound();
             }
 
-            return View(gpu);
+            return View(data);
         }
 
         // GET: Gpus/Create
