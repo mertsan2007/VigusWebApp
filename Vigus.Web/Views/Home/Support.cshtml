@@ -58,14 +58,15 @@
 
 @section Scripts{ 
     <script>
-     $(function () {
+     $(function ()
+     {
          $("select#GpuModelVm").change(function () {
              var modelId = $(this).val();
 
                 $("select#HomeVm.GpuViewModel").empty();
 
              $.getJSON(`/Home/GetGpu?modelId=${modelId}`, function (data) {
-                 //console.log(data);
+                 console.log(data);
                  $.each(data, function (i, item) {
                         $("select#HomeVm.GpuViewModel").append(`<option value="${item.id}">${item.name}</option>`);
                  });
