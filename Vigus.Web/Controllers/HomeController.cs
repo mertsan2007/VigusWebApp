@@ -73,6 +73,18 @@ namespace Vigus.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetGputest(int modelId)
+        {
+            var list= _context
+                .GpuModels
+                .Where(m => m.Id == modelId)
+                .FirstOrDefault()
+                .Gpus
+                .Select(g => new { g.Id, Name = g.Name })
+                .ToList();
+            return Json(list);
+        }
+        [HttpGet]
         public IActionResult Support()
         {
             SupportViewModel svm = new();

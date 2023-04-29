@@ -39,6 +39,12 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Image>().HasIndex(col => col.Name)
             .IsUnique();
 
+        //modelBuilder.Entity<GpuModel>().HasMany(x => x.GpuTechnologies).WithMany(x => //x.GpuModels)
+        //    .UsingEntity(h => h
+        //        .ToTable("ModelTechnology")
+        //        .HasData()
+        //    );
+
         modelBuilder.Entity<Series>().HasData(
             new Series { Id = 1, Name = "C Series" },
             new Series { Id = 2, Name = "B Series" },
@@ -56,28 +62,28 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<DriverVersion>().HasData(
-            new DriverVersion { Id = 1, Name = "v1.0.2", Description = "First release for legacy GPUs" },
-            new DriverVersion { Id = 2, Name = "v1.1.0", Description = "Added support for more variety of GPUs", KnownIssues = "Random crash may occur", FixedChanges = "Low performance fixed" }
+            new() { Id = 1, Name = "v1.0.2", Description = "First release for legacy GPUs" },
+            new() { Id = 2, Name = "v1.1.0", Description = "Added support for more variety of GPUs", KnownIssues = "Random crash may occur", FixedChanges = "Low performance fixed" }
             );
 
         modelBuilder.Entity<Image>().HasData(
-            new Image { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" },
-            new Image { Id = 2, Name = "defaulttechnology.png", Title = "Default TechnologyImage" }
+            new() { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" },
+            new() { Id = 2, Name = "defaulttechnology.png", Title = "Default TechnologyImage" }
             );
 
         modelBuilder.Entity<OsVersion>().HasData(
-            new OsVersion { Id = 1, Name = "Windows 7" },
-            new OsVersion { Id = 2, Name = "Windows 8" },
-            new OsVersion { Id = 3, Name = "Windows 10" },
-            new OsVersion { Id = 4, Name = "Windows 11" },
-            new OsVersion { Id = 5, Name = "Ubuntu" },
-            new OsVersion { Id = 6, Name = "Linux Mint" }
+            new() { Id = 1, Name = "Windows 7" },
+            new() { Id = 2, Name = "Windows 8" },
+            new() { Id = 3, Name = "Windows 10" },
+            new() { Id = 4, Name = "Windows 11" },
+            new() { Id = 5, Name = "Ubuntu" },
+            new() { Id = 6, Name = "Linux Mint" }
             );
 
-        //modelBuilder.Entity<GpuTechnology>().HasData(
-        //    new DriverVersion { Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics" },
-        //    new DriverVersion { Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change" }
-        //    );
+        modelBuilder.Entity<GpuTechnology>().HasData(
+            new DriverVersion { Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics" },
+            new DriverVersion { Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change" }
+            );
 
         modelBuilder.Entity<Gpu>().HasData(
             new Gpu
