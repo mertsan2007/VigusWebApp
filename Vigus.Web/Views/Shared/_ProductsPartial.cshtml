@@ -12,7 +12,7 @@
             else
             {
                 <div class="col-md">
-                    <div class="card" style="width: 8rem;" id="@gpu.Id" onclick="console.log(this.id);">
+                    <div class="card rounded-4" style="width: 8rem;" id="@gpu.Id" onclick="console.log(this.id);">
                         <img src="@(gpu.ImageName==null ? "~/Images/UserUploads/defaultgpu.png" : "~/Images/UserUploads/"+gpu.ImageName)" asp-append-version="true" class="card-img-top h-100" alt="GPU" width="128" height="128" />
                         <div class="card-body">
                             <h5 class="card-title">@gpu.FullGpuName</h5>

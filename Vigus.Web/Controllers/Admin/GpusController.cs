@@ -55,10 +55,10 @@ namespace Vigus.Web.Controllers.Admin
                        {
                            Id = gpu.Id,
                            Cores = gpu.Cores,
-                           Description = gpu.Description,
+                           Description = gpu.Description != null ? gpu.Description : "not set",
                            FullGpuName = $"Vigus {gpu.Name}",
                            MemorySizeInGb = gpu.MemorySize + "GB",
-                           PriceInDollars = gpu.Price + "$",
+                           PriceInDollars = gpu.Price != null ? gpu.Price+"$" : "not set",
                            ReleaseDate = gpu.ReleaseDate,
                            TdpInWatts = gpu.Tdp + "W",
                            ModelName = gpu.Model.Name,
@@ -95,19 +95,8 @@ namespace Vigus.Web.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu, GpuCreateViewModel vm)
+        public async Task<IActionResult> Create([Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
         {
-            vm.Id = gpu.Id;
-            vm.Name = gpu.Name;
-            vm.Description = gpu.Description;
-            vm.Cores = gpu.Cores;
-            vm.MemorySize = gpu.MemorySize;
-            vm.Tdp = gpu.Tdp;
-            vm.ImageId = gpu.ImageId;
-            vm.ModelId = gpu.ModelId;
-            vm.Price = gpu.Price;
-            vm.ReleaseDate = gpu.ReleaseDate;
-            vm.SupportedDriverVersions = gpu.SupportedDriverVersions;
             if (ModelState.IsValid)
             {
                 _context.Add(gpu);
@@ -117,7 +106,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
-            return View(vm);
+            return View(gpu);
         }
         // GET: Gpus/Edit/5
         public async Task<IActionResult> Edit(int? id)
