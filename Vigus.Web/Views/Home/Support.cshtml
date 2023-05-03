@@ -17,9 +17,9 @@
     </div>
 
     <div class="row py-4">
-        <div class="col">
+        <div class="col-md">
             <form asp-action="Support" class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
                         <h1 class="fw-bold display-3"><label asp-for="GpuModelVm">1</label></h1>
                         <h3 class="driverselect-title pb-1">Series</h3>
@@ -35,17 +35,17 @@
                         <select class="form-control fs-5" size="10" asp-for="GpuModelVm" asp-items="ViewBag.ModelId"></select>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
                         <input type="submit" value="submit" class="btn btn-outline-light btn-lg float-end" />
                         <h1 class="fw-bold display-3">2</h1>
                         <h3 class="driverselect-title pb-1">Gpu</h3>
-                        <select class="form-select fs-5 pt-4" size="11" asp-for="HomeVm.GpuViewModel" asp-items="ViewBag.GpuId"></select>
+                        <select class="form-select fs-5 pt-4" size="11" asp-for="GpuViewModel" asp-items="ViewBag.GpuId"></select>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-4">
+        <div class="col-md-4">
             <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light" style="background-color: #156c30 !important;">
                 <div class="float-end">
                     <svg width="16" height="16" fill="currentColor">
@@ -54,7 +54,7 @@
                 </div>
                 <h1 class="fw-bold display-3">3</h1>
                 <h3 class="driverselect-title pb-1">Result</h3>
-                <select class="form-select fs-5 pt-4" size="11" asp-for="HomeVm.DriverViewModel" asp-items="ViewBag.DriverId"></select>
+                <select class="form-select fs-5 pt-4" size="11" asp-for="DriverViewModel" asp-items="ViewBag.DriverId"></select>
             </div>
         </div>
     </div>
@@ -65,22 +65,26 @@
                 <h3 class="text-center text-light mt-3">Technologies</h3>
             </div>
             <div class="row">
-                <div class="col-2"></div>
-                <div class="col-4">
+                <div class="col-lg-2"></div>
+                <!--<div class="col-lg-4">
                     <div class="h-100 p-5 bg-light border border-3 border-dark rounded-4">
                         <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">Vigus Driver Software</h2>
                         <p class="py-3 m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                         <button class="btn btn-outline-dark" type="button">Example button</button>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="h-100 p-5 bg-light border border-3 border-dark rounded-4">
-                        <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">Vigus Driver Software</h2>
-                        <p class="py-3 m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <button class="btn btn-outline-dark" type="button">Example button</button>
+                -->
+                @foreach (var technology in Model.TechnologyViewModel)
+                {
+                    <div class="col-lg-auto">
+                        <div class="h-100 p-5 bg-light border border-3 border-dark rounded-4">
+                            <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">@technology.Name</h2>
+                            <p class="py-3 m-0">@technology.Description</p>
+                            <button class="btn btn-outline-dark" type="button">Example button</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-2"></div>
+                }
+                <div class="col-lg-2"></div>
             </div>
         </div>
     </div>

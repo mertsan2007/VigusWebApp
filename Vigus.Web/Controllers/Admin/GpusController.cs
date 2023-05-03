@@ -75,7 +75,8 @@ namespace Vigus.Web.Controllers.Admin
                 return NotFound();
             }
 
-            var data =await _context.Gpus.Include(g => g.Model).FirstOrDefaultAsync(m => m.Id == id);
+            var data =await _context.Gpus.Include(g => g.Model)
+                .Include(g=>g.Image).FirstOrDefaultAsync(m => m.Id == id);
             if (data == null)
             {
                 return NotFound();

@@ -63,69 +63,36 @@ namespace Vigus.Web.Controllers
             vm.DriverViewModel = null;
             return View(vm);
         }
-
-        [HttpGet]
+        
         public async Task<IActionResult> GetGpu(int modelId)
         {
             var gpuList = _context.GpuModels.Where(m => m.Id == modelId).FirstOrDefault().Gpus
                 .Select(g => new { g.Id, Name = g.Name }).ToList();
             return Json(gpuList);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetGputest(int modelId)
-        {
-            var list= _context
-                .GpuModels
-                .Where(m => m.Id == modelId)
-                .FirstOrDefault()
-                .Gpus
-                .Select(g => new { g.Id, Name = g.Name })
-                .ToList();
-            return Json(list);
-        }
+        
         [HttpGet]
         public IActionResult Support()
         {
-            SupportViewModel svm = new();
-            
-            //var gpucontext = _context.Gpus.Include(g => g.Model);
-            //var gpumodel = _context.GpuModels.Include(m => m.Series);
+            var gputechnology = _context.GpuTechnologies.Include(x => x.Image);
             var gpuseries = _context.Series.OrderByDescending(s=>s.Name);
-            //
-            //var gpudata = from gpu in gpucontext
-            //              orderby gpu.Id descending
-            //              select new GpusViewModel
-            //              {
-            //                  Id = gpu.Id,
-            //                  Cores = gpu.Cores,
-            //                  Description = gpu.Description,
-            //                  FullGpuName = $"Vigus {gpu.Name}",
-            //                  MemorySizeInGb = gpu.MemorySize + "GB",
-            //                  PriceInDollars = gpu.Price + "$",
-            //                  ReleaseDate = gpu.ReleaseDate,
-            //                  TdpInWatts = gpu.Tdp + "W",
-            //                  ModelName = gpu.Model.Name,
-            //                  ImageName = gpu.Image.Name
-            //              };
-            //
-            //vm.GpuViewModel = gpudata;
-            //
-            //svm.HomeVm = vm;
-            svm.SeriesVm = gpuseries;
-            //svm.GpuModelVm = gpumodel;
             
+            SupportViewModel svm = new()
+            {
+                SeriesVm = gpuseries,
+                TechnologyViewModel = gputechnology
+            };
+
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-            //ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
             return View(svm);
         }
 
         [HttpPost]
         public IActionResult Support(SupportViewModel svm)
         {
-            var gpudriver = _context.DriverVersions.Include(d => d.OsVersions);
+            var gpudriver = _context.DriverVersions;
             var gpucontext = _context.Gpus.Include(g => g.Model);
-            var gpumodel = _context.GpuModels.Include(m => m.Series);
+            var gpumodel = _context.GpuModels;
             var gpuseries = _context.Series.OrderByDescending(s => s.Name);
 
             var gpudata = from gpu in gpucontext
@@ -156,11 +123,9 @@ namespace Vigus.Web.Controllers
                                  OsVersions = driver.OsVersions
                              };
 
-            vm.GpuViewModel = gpudata;
-            vm.TechnologyViewModel = null;
-            vm.DriverViewModel = driverdata;
-
-            svm.HomeVm = vm;
+            svm.GpuViewModel = gpudata;
+            svm.TechnologyViewModel = null;
+            svm.DriverViewModel = driverdata;
             svm.SeriesVm = gpuseries;
             svm.GpuModelVm = gpumodel;
 
