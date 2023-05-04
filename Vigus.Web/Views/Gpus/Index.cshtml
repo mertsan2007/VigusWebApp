@@ -13,14 +13,16 @@
 
 <form asp-action="Filter" method="post">
     <div class="row p-2 rounded-3" style="background-color: #ccc">
-        <div class="col"><input name="Name" class="form-control" placeholder="Name" /></div>
-        <div class="col"><select name="ModelId" class="form-control" asp-items="ViewBag.ModelId"></select></div>
-        <div class="col"><input name="" class="form-control" placeholder="Memory Size" /></div>
-        <div class="col"><input name="" class="form-control" placeholder="Minimum TDP" /></div>
-        <div class="col"><input name="" class="form-control" placeholder="Maximum TDP" /></div>
-        <div class="col"><input name="" class="form-control" placeholder="Minimum Price" /></div>
-        <div class="col"><input name="" class="form-control" placeholder="Maximum Price" /></div>
-        <div class="col">
+        <div class="col-lg"><input name="Name" class="form-control" placeholder="Name" /></div>
+        <div class="col-lg"><select name="ModelId" class="form-control" asp-items="ViewBag.ModelId">
+            <option value="0">null</option>
+        </select></div>
+        <div class="col-lg"><input name="" class="form-control" placeholder="Memory Size" /></div>
+        <div class="col-lg"><input name="" class="form-control" placeholder="Minimum TDP" /></div>
+        <div class="col-lg"><input name="" class="form-control" placeholder="Maximum TDP" /></div>
+        <div class="col-lg"><input name="" class="form-control" placeholder="Minimum Price" /></div>
+        <div class="col-lg"><input name="" class="form-control" placeholder="Maximum Price" /></div>
+        <div class="col-lg">
             <input type="submit" value="Search" class="btn btn-primary" />
             <button asp-action="Index" class="btn btn-danger">Clear Filters</button>
         </div>

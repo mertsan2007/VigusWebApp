@@ -19,7 +19,7 @@ namespace Vigus.Web.Controllers.Admin
         // GET: GpuImages
         public async Task<IActionResult> Index()
         {
-            var vigusGpuContext = _context.Images.Include(g => g.Gpus);
+            var vigusGpuContext = _context.Images;
             return View(await vigusGpuContext.ToListAsync());
         }
 
@@ -32,7 +32,6 @@ namespace Vigus.Web.Controllers.Admin
             }
 
             var image = await _context.Images
-                .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (image == null)
             {
@@ -139,7 +138,6 @@ namespace Vigus.Web.Controllers.Admin
             }
 
             var image = await _context.Images
-                .Include(g => g.Gpus)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (image == null)
             {

@@ -19,31 +19,33 @@ namespace Vigus.Web.Controllers.Admin
         public async Task<IActionResult> Filter(GpuFilterModel filterModel)
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-
-            var gpus = _context.Gpus.Include(g => g.Model)
+            
+            var gpus = _context.Gpus.
+                Include(g => g.Model).Include(z=>z.Model.Series)
                 .Where(it =>
                     (String.IsNullOrEmpty(filterModel.Name) || it.Name.Contains(filterModel.Name)) &&
-                    it.ModelId == filterModel.ModelId &&
-                    it.MemorySize == filterModel.MemorySize
-
+                    it.ModelId == filterModel.ModelId
+                    //it.Model.SeriesId == filterModel.SeriesId &&
+                    //it.MemorySize == filterModel.MemorySize
                 );
 
-            var data = from gpu in gpus
-                       orderby gpu.Name
-                       select new GpusViewModel
-                       {
-                           Id = gpu.Id
-                           //Cores = gpu.Cores,
-                           //Description = gpu.Description,
-                           //FullGpuName = $"Vigus {gpu.Name}",
-                           //MemorySizeInGb = gpu.MemorySize + "GB",
-                           //PriceInDollars = gpu.Price + "$",
-                           //ReleaseDate = gpu.ReleaseDate,
-                           //TdpInWatts = gpu.Tdp + "W",
-                           //ModelName = gpu.Model.Name
-                       };
+            //var data = from gpu in gpus
+            //           orderby gpu.Id
+            //           select new GpusViewModel
+            //           {
+            //               Id = gpu.Id,
+            //               Cores = gpu.Cores,
+            //               Description = gpu.Description != null ? gpu.Description : "not set",
+            //               FullGpuName = $"Vigus {gpu.Name}",
+            //               MemorySizeInGb = gpu.MemorySize + "GB",
+            //               PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+            //               ReleaseDate = gpu.ReleaseDate,
+            //               TdpInWatts = gpu.Tdp + "W",
+            //               ModelName = gpu.Model.Name,
+            //               ImageName = gpu.Image.Name
+            //           };
 
-            return View("Index", await data.ToListAsync());
+            return View(await gpus.ToListAsync());
         }
 
         // GET: Gpus
@@ -64,6 +66,8 @@ namespace Vigus.Web.Controllers.Admin
                            ModelName = gpu.Model.Name,
                            ImageName = gpu.Image.Name
                        };
+
+            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
             return View(await data.ToListAsync());
         }
 
