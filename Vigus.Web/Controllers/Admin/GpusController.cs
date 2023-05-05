@@ -19,36 +19,34 @@ namespace Vigus.Web.Controllers.Admin
         public async Task<IActionResult> Filter(GpuFilterModel filterModel)
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-            
+
             var gpus = _context.Gpus.
                 Include(g => g.Model).Include(z=>z.Model.Series)
                 .Where(it =>
-                    (String.IsNullOrEmpty(filterModel.Name) || it.Name.Contains(filterModel.Name)) &&
-                    it.ModelId == filterModel.ModelId
-                    //it.Model.SeriesId == filterModel.SeriesId &&
-                    //it.MemorySize == filterModel.MemorySize
+                    (String.IsNullOrEmpty(filterModel.Name) || it.Name.Contains(filterModel.Name)) ||
+                    it.ModelId == filterModel.ModelId &&
+                    it.MemorySize == filterModel.MemorySize
                 );
 
-            //var data = from gpu in gpus
-            //           orderby gpu.Id
-            //           select new GpusViewModel
-            //           {
-            //               Id = gpu.Id,
-            //               Cores = gpu.Cores,
-            //               Description = gpu.Description != null ? gpu.Description : "not set",
-            //               FullGpuName = $"Vigus {gpu.Name}",
-            //               MemorySizeInGb = gpu.MemorySize + "GB",
-            //               PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
-            //               ReleaseDate = gpu.ReleaseDate,
-            //               TdpInWatts = gpu.Tdp + "W",
-            //               ModelName = gpu.Model.Name,
-            //               ImageName = gpu.Image.Name
-            //           };
+            var data = from gpu in gpus
+                       orderby gpu.Id
+                       select new GpusViewModel
+                       {
+                           Id = gpu.Id,
+                           Cores = gpu.Cores,
+                           Description = gpu.Description != null ? gpu.Description : "not set",
+                           FullGpuName = $"Vigus {gpu.Name}",
+                           MemorySizeInGb = gpu.MemorySize + "GB",
+                           PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+                           ReleaseDate = gpu.ReleaseDate,
+                           TdpInWatts = gpu.Tdp + "W",
+                           ModelName = gpu.Model.Name,
+                           ImageName = gpu.Image.Name
+                       };
 
-            return View(await gpus.ToListAsync());
+            return View("Index",await data.ToListAsync());
         }
 
-        // GET: Gpus
         public async Task<IActionResult> Index()
         {
             var data = from gpu in _context.Gpus.Include(g => g.Model)
@@ -71,7 +69,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(await data.ToListAsync());
         }
 
-        // GET: Gpus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Gpus == null)
@@ -88,8 +85,7 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(data);
         }
-
-        // GET: Gpus/Create
+        
         public IActionResult Create()
         {
             ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
@@ -113,7 +109,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
-        // GET: Gpus/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Gpus == null)
@@ -132,7 +128,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(gpu);
         }
 
-        // POST: Gpus/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
@@ -167,8 +162,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
             return View(gpu);
         }
-
-        // GET: Gpus/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Gpus == null)
@@ -186,8 +180,7 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(gpu);
         }
-
-        // POST: Gpus/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

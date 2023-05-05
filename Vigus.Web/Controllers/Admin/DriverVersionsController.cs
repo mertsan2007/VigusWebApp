@@ -12,16 +12,14 @@ namespace Vigus.Web.Controllers.Admin
         {
             _context = context;
         }
-
-        // GET: DriverVersions
+        
         public async Task<IActionResult> Index()
         {
             return _context.DriverVersions != null ?
                         View(await _context.DriverVersions.ToListAsync()) :
                         Problem("Entity set 'VigusGpuContext.DriverVersions'  is null.");
         }
-
-        // GET: DriverVersions/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.DriverVersions == null)
@@ -38,16 +36,12 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(driverVersion);
         }
-
-        // GET: DriverVersions/Create
+        
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: DriverVersions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Description,KnownIssues,FixedChanges,Id")] DriverVersion driverVersion)
@@ -60,8 +54,7 @@ namespace Vigus.Web.Controllers.Admin
             }
             return View(driverVersion);
         }
-
-        // GET: DriverVersions/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.DriverVersions == null)
@@ -76,10 +69,7 @@ namespace Vigus.Web.Controllers.Admin
             }
             return View(driverVersion);
         }
-
-        // POST: DriverVersions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Description,KnownIssues,FixedChanges,Id")] DriverVersion driverVersion)
@@ -111,8 +101,7 @@ namespace Vigus.Web.Controllers.Admin
             }
             return View(driverVersion);
         }
-
-        // GET: DriverVersions/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.DriverVersions == null)
@@ -129,8 +118,7 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(driverVersion);
         }
-
-        // POST: DriverVersions/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -39,12 +39,7 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Image>().HasIndex(col => col.Name)
             .IsUnique();
 
-        //modelBuilder.Entity<GpuModel>().HasMany(x => x.GpuTechnologies).WithMany(x => //x.GpuModels)
-        //    .UsingEntity(h => h
-        //        .ToTable("ModelTechnology")
-        //        .HasData()
-        //    );
-
+        #region seed
         modelBuilder.Entity<Series>().HasData(
             new Series { Id = 1, Name = "C Series" },
             new Series { Id = 2, Name = "B Series" },
@@ -99,5 +94,6 @@ public class VigusGpuContext : DbContext
                 Tdp = 300
             }
             );
+        #endregion
     }
 }

@@ -9,5 +9,4 @@ public class GpuTechnology : EntityBase
 
     public int? ImageId { get; set; }
     public virtual Image? Image { get; set; }
-    // hd decode-encode support, directx12 support
 }

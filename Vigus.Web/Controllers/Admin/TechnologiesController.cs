@@ -14,14 +14,12 @@ namespace Vigus.Web.Controllers.Admin
             _context = context;
         }
 
-        // GET: Technologies
         public async Task<IActionResult> Index()
         {
             var vigusGpuContext = _context.GpuTechnologies.Include(g => g.Image);
             return View(await vigusGpuContext.ToListAsync());
         }
-
-        // GET: Technologies/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.GpuTechnologies == null)
@@ -39,17 +37,13 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(gpuTechnology);
         }
-
-        // GET: Technologies/Create
+        
         public IActionResult Create()
         {
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Title");
             return View();
         }
 
-        // POST: Technologies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Description,ImageId,Id")] GpuTechnology gpuTechnology)
@@ -63,8 +57,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Title", gpuTechnology.ImageId);
             return View(gpuTechnology);
         }
-
-        // GET: Technologies/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.GpuTechnologies == null)
@@ -81,9 +74,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(gpuTechnology);
         }
 
-        // POST: Technologies/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Description,ImageId,Id")] GpuTechnology gpuTechnology)
@@ -117,7 +107,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(gpuTechnology);
         }
 
-        // GET: Technologies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.GpuTechnologies == null)
@@ -136,7 +125,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(gpuTechnology);
         }
 
-        // POST: Technologies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

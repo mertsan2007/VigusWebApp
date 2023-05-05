@@ -10,5 +10,4 @@ public class GpuModel : EntityBase
     public virtual Series? Series { get; set; }
 
     public virtual ICollection<GpuTechnology>? GpuTechnologies { get; set; }
-    //C 900 Series,C 800 Series
 }

@@ -15,15 +15,13 @@ namespace Vigus.Web.Controllers.Admin
             _context = context;
             _hostEnvironment = hostEnvironment;
         }
-
-        // GET: GpuImages
+        
         public async Task<IActionResult> Index()
         {
             var vigusGpuContext = _context.Images;
             return View(await vigusGpuContext.ToListAsync());
         }
-
-        // GET: GpuImages/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Images == null)
@@ -40,18 +38,14 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(image);
         }
-
-        // GET: GpuImages/Create
+        
         public IActionResult Create()
         {
             ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
             ViewData["TechnologyId"] = new SelectList(_context.GpuTechnologies, "Id", "Name");
             return View();
         }
-
-        // POST: GpuImages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,File,Gpus,Technologies,Id")] Image image)
@@ -75,8 +69,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["TechnologyId"] = new SelectList(_context.GpuTechnologies, "Id", "Name", image.Technologies);
             return View(image);
         }
-
-        // GET: GpuImages/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Images == null)
@@ -92,10 +85,7 @@ namespace Vigus.Web.Controllers.Admin
             ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Id", image.Gpus);
             return View(image);
         }
-
-        // POST: GpuImages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Title,Name,GpuId,Id")] Image image)
@@ -129,7 +119,6 @@ namespace Vigus.Web.Controllers.Admin
             return View(image);
         }
 
-        // GET: GpuImages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Images == null)
@@ -146,8 +135,7 @@ namespace Vigus.Web.Controllers.Admin
 
             return View(image);
         }
-
-        // POST: GpuImages/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
