@@ -1,25 +1,24 @@
 ﻿@model HomeViewModel
 
-<div class="row my-4">
+<div class="my-4">
     @{
-        foreach (var gpu in Model.GpuViewModel)
+        if (Model.GpuViewModel.Any())
         {
-            if (gpu.Id <= 0)
-            {
-                <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
-                break;
-            }
-            else
-            {
-                <div class="col-md">
-                    <div class="card rounded-4" style="width: 8rem;" id="@gpu.Id" onclick="console.log(this.id);">
-                        <img src="@(gpu.ImageName==null ? "~/Images/UserUploads/defaultgpu.png" : "~/Images/UserUploads/"+gpu.ImageName)" asp-append-version="true" class="card-img-top h-100" alt="GPU" width="128" height="128" />
+            <div class="d-flex overflow-auto">
+                @foreach (var gpu in Model.GpuViewModel)
+                {
+                    <div class="card rounded-4 me-4 overflow-hidden" style="min-width: 80px;" id="@gpu.Id" onclick="console.log(this.id);">
+                        <img src="@(gpu.ImageName == null ? "~/Images/UserUploads/defaultgpu.png" : "~/Images/UserUploads/" + gpu.ImageName)" asp-append-version="true" class="card-img-top" alt="GPU" />
                         <div class="card-body">
                             <h5 class="card-title">@gpu.FullGpuName</h5>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
+        }
+        else
+        {
+            <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
         }
     }
 </div>

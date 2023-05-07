@@ -1,7 +1,10 @@
-﻿namespace Vigus.Web.Data;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Vigus.Web.Data;
 
 public class GpuTechnology : EntityBase
 {
+    [Required]
     public string? Name { get; set; }
     public string? Description { get; set; }
 

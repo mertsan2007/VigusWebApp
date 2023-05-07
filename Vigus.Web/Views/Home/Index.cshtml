@@ -1,12 +1,13 @@
-﻿@model HomeViewModel
+﻿@using Microsoft.EntityFrameworkCore
+@model HomeViewModel
 
 @{
     ViewData["Title"] = "- Vigus";
 }
-<div class="px-5 bg-dark full-width overflow-hidden">
+<div class="px-5 bg-dark full-width">
     <div class="row gx-0 bg-dark text-light" style="padding-top: 100px; padding-bottom: 100px;">
-        <div class="col-2"></div>
-        <div class="col-6">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6">
             <div>
                 <h1 class="display-5 fw-bold lh-1 mb-3 text-decoration-underline">C 90 Series release</h1>
                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -21,8 +22,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <img src="~/Images/UserUploads/defaultgpu.png" class="d-block mx-lg-auto" alt="C900">
+        <div class="col-sm-4">
+            <img src="~/Images/UserUploads/defaultgpu.png" class="d-block offset-sm-2 d-none d-md-block" alt="C90">
         </div>
     </div>
 </div>
@@ -32,42 +33,39 @@
         <partial name="_ProductsPartial" />
     </div>
     <div class="container-sm my-5">
-        <h1 class="fw-bold text-decoration-underline">Technologies</h1>
-        <div class="row my-4">
-            @{
-                if (Model.TechnologyViewModel == null)
-                {
-                    <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
-                }
-                else
-                {
-                    foreach (var technology in Model.TechnologyViewModel)
+        <h1 class="fw-bold text-decoration-underline mb-4">Technologies</h1>
+        @{
+            if (Model.TechnologyViewModel.Any())
+            {
+                <div class="d-flex overflow-auto">
+                    @foreach (var technology in Model.TechnologyViewModel)
                     {
-
-                        <div class="col-md">
-                            <div class="card text-white rounded-4" style="width: 35rem">
-                                <img src="@(technology.Image == null ? "/Images/UserUploads/defaulttechnology.png" : "~/Images/UserUploads/"+@technology.Image.Name)" class="card-img-top h-100" alt="@technology.Name">
-                                <div class="card-img-overlay h-100 d-flex flex-column justify-content-end p-0">
-                                    <div class="bg-black bg-opacity-75 p-3">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <h4 class="card-title">@technology.Name</h4>
-                                                <p class="card-text">@technology.Description</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <a class="btn btn-outline-light px-4 me-md-2" asp-controller="Home" asp-action="Support">Learn more</a>
-                                            </div>
+                        <div class="card text-white rounded-4 overflow-hidden me-4" style="min-width: 40%">
+                            <img src="@(technology.Image == null ? "" : "/Images/UserUploads/" + technology.Image.Name)" class="card-img-top" alt="@technology.Name" width="246" height="250">
+                            <div class="card-img-overlay h-100 d-flex flex-column justify-content-end p-0">
+                                <div class="bg-black bg-opacity-75 p-3">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h4 class="card-title">@technology.Name</h4>
+                                            <p class="card-text">@technology.Description</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="btn btn-outline-light px-4 me-md-2" asp-controller="Home" asp-action="Support">Learn more</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
-                }
+                </div>
             }
-        </div>
+            else
+            {
+                <h3 class="fw-bold text-danger text-center">There's nothing to display</h3>
+            }
+        }
     </div>
-    <div class="container-sm">
-        <h1 class="fw-bold text-decoration-underline">About</h1>
-    </div>
+</div>
+<div class="container-sm">
+    <h1 class="fw-bold text-decoration-underline">About</h1>
 </div>

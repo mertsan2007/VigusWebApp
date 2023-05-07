@@ -15,7 +15,7 @@ namespace Vigus.Web.Controllers
         {
             _context = context;
             _gpudata = from gpu in _context.Gpus.Include(g => g.Model)
-                orderby gpu.Id descending
+                orderby gpu.Name
                 select new GpusViewModel
                 {
                     Id = gpu.Id,
@@ -34,7 +34,7 @@ namespace Vigus.Web.Controllers
         public HomeViewModel vm = new();
         public async Task<IActionResult> Index()
         {
-            var vigusTechnology = _context.GpuTechnologies.Include(t => t.GpuModels);
+            var vigusTechnology = _context.GpuTechnologies.Include(t => t.Image);
 
             vm.GpuViewModel = _gpudata;
             vm.DriverViewModel = null;
@@ -49,10 +49,10 @@ namespace Vigus.Web.Controllers
 
         public async Task<IActionResult> GetGpu(int modelId)
         {
-            var gpuList = _context.GpuModels.Where(m => m.Id == modelId).FirstOrDefault().Gpus
-                .Select(g => new { g.Id, Name = g.Name }).ToList();
-            return Json(gpuList);
-        }
+            var gpuTable = _context.GpuModels.FirstOrDefault(m => m.Id == modelId).Gpus
+                .Select(g => new { g.Id, Name = g.Name });
+            return Json(gpuTable.ToList());
+        }   
 
         [HttpGet]
         public IActionResult Support()
@@ -66,7 +66,7 @@ namespace Vigus.Web.Controllers
                 TechnologyViewModel = gputechnology
             };
 
-            ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
+            ViewData["ModelId"] = new SelectList(_context.GpuModels.OrderByDescending(z=>z.Name), "Id", "Name");
             return View(svm);
         }
 
@@ -93,6 +93,5 @@ namespace Vigus.Web.Controllers
             ViewData["OsId"] = new SelectList(_context.OsVersions, "Id", "Name");
             return View(svm);
         }
-
     }
 }
