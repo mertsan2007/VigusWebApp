@@ -66,7 +66,7 @@
             </div>
             @if (Model.TechnologyViewModel.Any())
             {
-                <div class="overflow-auto d-flex">
+                <div class="overflow-auto d-flex justify-content-center">
                     @foreach (var technology in Model.TechnologyViewModel)
                     {
                         <div class="p-5 me-4 mb-4 bg-light border border-5 rounded-4 card" style="min-width: 300px">
@@ -89,11 +89,12 @@
     <script>
         $(function () {
             $("select#GpuModelVm").change(function () {
+                debugger;
                 var modelId = $(this).val();
 
                 $("select#HomeVm.GpuViewModel").empty();
 
-                $.getJSON(`/Home/GetGpu?modelId=${modelId}`, function (data) {
+                $.getJSON(`/Home/GetGpu?id=${modelId}`, function (data) {
                     console.log(data);
                     $.each(data, function (i, item) {
                         $("select#HomeVm.GpuViewModel").append(`<option value="${item.id}">${item.name}</option>`);

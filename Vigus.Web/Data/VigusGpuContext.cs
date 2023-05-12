@@ -63,7 +63,8 @@ public class VigusGpuContext : DbContext
 
         modelBuilder.Entity<Image>().HasData(
             new() { Id = 1, Name = "defaultgpu.png", Title = "Default GpuImage" },
-            new() { Id = 2, Name = "defaulttechnology.png", Title = "Default TechnologyImage" }
+            new() { Id = 2, Name = "defaultimage128x128.png", Title = "defaultimage 128x128" },
+            new() { Id = 3, Name = "defaultimage496x250.png", Title = "defaultimage 496x250" }
             );
 
         modelBuilder.Entity<OsVersion>().HasData(
@@ -76,8 +77,8 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<GpuTechnology>().HasData(
-            new DriverVersion { Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics" },
-            new DriverVersion { Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change" }
+            new() { Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics", ImageId = 3 },
+            new() { Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change", ImageId = 3 }
             );
 
         modelBuilder.Entity<Gpu>().HasData(

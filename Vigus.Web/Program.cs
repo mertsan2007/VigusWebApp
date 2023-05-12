@@ -11,7 +11,7 @@ namespace Vigus.Web
             var conStr = builder.Configuration.GetConnectionString("DefaultCon");
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<VigusGpuContext>(options => options.UseSqlServer(conStr));
+            builder.Services.AddDbContext<VigusGpuContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conStr));
 
             var app = builder.Build();
 

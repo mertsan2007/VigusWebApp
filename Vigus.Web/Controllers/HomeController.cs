@@ -47,11 +47,17 @@ namespace Vigus.Web.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> GetGpu(int modelId)
+        public async Task<IActionResult> GetGpu(int? id)
         {
-            var gpuTable = _context.GpuModels.FirstOrDefault(m => m.Id == modelId).Gpus
+            if (id == null || _context.Gpus == null || id == 0)
+            {
+                return Json("request is null");
+            }
+            var gpuModel = await _context.GpuModels.FindAsync(id);
+
+            var gpus = gpuModel.Gpus
                 .Select(g => new { g.Id, Name = g.Name });
-            return Json(gpuTable.ToList());
+            return Json(gpus);
         }   
 
         [HttpGet]
