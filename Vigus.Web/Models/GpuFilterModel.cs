@@ -1,9 +1,8 @@
-﻿namespace Vigus.Web.Models
+﻿namespace Vigus.Web.Models;
+
+public class GpuFilterModel
 {
-    public class GpuFilterModel
-    {
-        public string? Name { get; set; }
-        public int? ModelId { get; set; }
-        public int? MemorySize { get; set; }
-    }
+    public string? Name { get; set; }
+    public int? ModelId { get; set; }
+    public int? MemorySize { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿@using NuGet.Protocol
-@model IEnumerable<GpusViewModel>
+﻿@model IEnumerable<GpusViewModel>
 
 @{
     ViewData["Title"] = "- GPUs";
@@ -13,15 +12,19 @@
 
 <form asp-action="Filter" method="post">
     <div class="row px-2 pt-2 pb-0 rounded-3" style="background-color: #ccc">
-        <div class="col-sm"><input name="Name" class="form-control" placeholder="Name" /></div>
+        <div class="col-sm">
+            <input name="Name" class="form-control" placeholder="Name"/>
+        </div>
         <div class="col-sm">
             <select name="ModelId" class="form-control" asp-items="ViewBag.ModelId">
                 <option value="0">null</option>
             </select>
         </div>
-        <div class="col-sm"><input name="" class="form-control" placeholder="Memory Size" /></div>
+        <div class="col-sm">
+            <input name="" class="form-control" placeholder="Memory Size"/>
+        </div>
         <div class="col-sm-2">
-            <input type="submit" value="Filter" class="btn btn-primary" />
+            <input type="submit" value="Filter" class="btn btn-primary"/>
             <button asp-action="Index" class="btn btn-danger">Clear Filters</button>
         </div>
     </div>
@@ -29,80 +32,80 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                Image Preview
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullGpuName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cores)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TdpInWatts)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PriceInDollars)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemorySizeInGb)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModelName)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            Image Preview
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullGpuName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cores)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TdpInWatts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceInDollars)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemorySizeInGb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModelName)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    <img src="~/Images/UserUploads/@item.ImageName" width="48" height="48" style="border: 1px solid" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullGpuName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cores)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TdpInWatts)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PriceInDollars)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MemorySizeInGb)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModelName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <img src="~/Images/UserUploads/@item.ImageName" width="48" height="48" style="border: 1px solid"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullGpuName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TdpInWatts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceInDollars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemorySizeInGb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

@@ -1,11 +1,10 @@
-﻿@using Microsoft.EntityFrameworkCore
-@model HomeViewModel
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "- Vigus";
 }
 <div class="px-5 bg-dark full-width">
-    <div class="row gx-0 bg-dark text-light" style="padding-top: 100px; padding-bottom: 100px;">
+    <div class="row gx-0 bg-dark text-light" style="padding-bottom: 100px; padding-top: 100px;">
         <div class="col-sm-2"></div>
         <div class="col-sm-6">
             <div>
@@ -16,7 +15,7 @@
                     <a class="btn text-light px-4" asp-action="Support">
                         Go to downloads & support
                         <svg width="16" height="16" fill="currentColor">
-                            <path d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
+                            <path d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"/>
                         </svg>
                     </a>
                 </div>
@@ -30,7 +29,7 @@
 <div class="container py-4 pb-0">
     <div class="container-sm">
         <h1 class="fw-bold text-decoration-underline">Products</h1>
-        <partial name="_ProductsPartial" />
+        <partial name="_ProductsPartial"/>
     </div>
     <div class="container-sm my-5">
         <h1 class="fw-bold text-decoration-underline mb-4">Technologies</h1>

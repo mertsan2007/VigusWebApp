@@ -3,42 +3,42 @@
 @{
     ViewData["Title"] = "- GPUs";
 }
-<h4 style="padding-top:10px;">Gpu - Create</h4>
-<hr />
+<h4 style="padding-top: 10px;">Gpu - Create</h4>
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Cores" class="control-label"></label>
-                <input asp-for="Cores" class="form-control" />
+                <input asp-for="Cores" class="form-control"/>
                 <span asp-validation-for="Cores" class="text-danger"></span>
             </div>
             <label asp-for="Tdp" class="form-label" id="watt"></label>
             <div class="input-group">
-                <input asp-for="Tdp" class="form-control" aria-describedby="watt" />
+                <input asp-for="Tdp" class="form-control" aria-describedby="watt"/>
                 <span class="input-group-text">W</span>
                 <span asp-validation-for="Tdp" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
+                <input asp-for="ReleaseDate" class="form-control"/>
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
             <label asp-for="Price" class="form-label" id="s"></label>
             <div class="input-group">
-                <input asp-for="Price" class="form-control" aria-describedby="s" />
+                <input asp-for="Price" class="form-control" aria-describedby="s"/>
                 <span class="input-group-text">$</span>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <label asp-for="MemorySize" class="form-label" id="gb"></label>
             <div class="input-group">
-                <input asp-for="MemorySize" class="form-control" aria-describedby="gb" />
+                <input asp-for="MemorySize" class="form-control" aria-describedby="gb"/>
                 <span class="input-group-text">GB</span>
                 <span asp-validation-for="MemorySize" class="text-danger"></span>
             </div>
@@ -61,9 +61,9 @@
                     <option value="null">Null</option>
                 </select>
             </div>
-            <hr />
+            <hr/>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>

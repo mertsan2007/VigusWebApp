@@ -1,81 +1,103 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vigus @ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Vigus.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Vigus.Web.styles.css" asp-append-version="true"/>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-dark bg-black navbar-expand-sm">
-            <div class="container">
-                <a asp-controller="Home" asp-action="Index"><img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="150px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';" /></a>
-                <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Home" asp-action="Products">Products</a>
-                        </li>                             
-                        <li class="nav-item">             
-                            <a class="nav-link text-light" asp-controller="Home" asp-action="Support">Support</a>
-                        </li>
-                    </ul>
-                </div>
+<header>
+    <nav class="navbar navbar-dark bg-black navbar-expand-sm">
+        <div class="container">
+            <a asp-controller="Home" asp-action="Index">
+                <img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="150px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';"/>
+            </a>
+            <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-controller="Home" asp-action="Products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-controller="Home" asp-action="Support">Support</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <div class="container-sm">
-        <main role="main" class="pb-3">
-            @RenderBody()
-            <partial name="_AboutPartial" />
-        </main>
-    </div>
+<div class="container-sm">
+    <main role="main" class="pb-3">
+        @RenderBody()
+        <partial name="_AboutPartial"/>
+    </main>
+</div>
 
-    <div class="container-xs bottom-0">
-        <footer class="bg-black py-4 px-5">
-            <div class="row text-light">
-                <div class="col-sm-4">
-                    <a asp-controller="Home" asp-action="Index"><img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="230px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';" /></a>
-                </div>
-                <div class="col-sm-2 offset-sm-2">
-                    <h6 class="fw-bold">Home</h6>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Products">Products</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Support">Downloads & Support</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-2">
-                    <h6 class="fw-bold">Data (Admin)</h6>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Gpus" asp-action="Index">Gpus</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Images" asp-action="Index">Images</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="DriverVersions" asp-action="Index">Driver Versions</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" asp-controller="Technologies" asp-action="Index">Technologies</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-2">
-                    <label><h6 class="fw-bold">Search on this website</h6>
-                        <input class="form-control" />
-                    </label>
-                </div>
+<div class="container-xs bottom-0">
+    <footer class="bg-black py-4 px-5">
+        <div class="row text-light">
+            <div class="col-sm-4">
+                <a asp-controller="Home" asp-action="Index">
+                    <img alt="Vigus" src="~/Images/vigus.png" class="navbar-brand" width="230px" onmouseover="this.src='/Images/vigus2.png';" onmouseout="this.src='/Images/vigus.png';"/>
+                </a>
             </div>
-            <div class="d-flex justify-content-between border-top text-light" style="padding-top: 20px; margin-top: 20px;">
-                <p>mertsn</p>
-                <p class="d-flex">&copy; @DateTime.Now.Year</p>
+            <div class="col-sm-2 offset-sm-2">
+                <h6 class="fw-bold">Home</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Products">Products</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Home" asp-action="Support">Downloads & Support</a>
+                    </li>
+                </ul>
             </div>
-        </footer>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+            <div class="col-sm-2">
+                <h6 class="fw-bold">Data (Admin)</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Gpus" asp-action="Index">Gpus</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Images" asp-action="Index">Images</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="DriverVersions" asp-action="Index">Driver Versions</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="Technologies" asp-action="Index">Technologies</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-muted" asp-controller="GpuModels" asp-action="Index">GpuModels</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <label>
+                    <h6 class="fw-bold">Search on this website</h6>
+                    <input class="form-control"/>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between border-top text-light" style="margin-top: 20px; padding-top: 20px;">
+            <p>mertsn</p>
+            <p class="d-flex">&copy; @DateTime.Now.Year</p>
+        </div>
+    </footer>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

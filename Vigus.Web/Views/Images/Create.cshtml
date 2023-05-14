@@ -3,15 +3,15 @@
 @{
     ViewData["Title"] = "- Images";
 }
-<h4 style="padding-top:10px;">Image - Create</h4>
-<hr />
+<h4 style="padding-top: 10px;">Image - Create</h4>
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control"/>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -19,9 +19,9 @@
                 <input asp-for="File" accept="image/*" class="form-control"/>
                 <span asp-validation-for="File" class="text-danger"></span>
             </div>
-            <hr />
+            <hr/>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>
