@@ -54,6 +54,7 @@
                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
                     </svg>
                 </div>
+                <a class="btn btn-outline-light btn-lg" asp-action="Support">Reset</a>
                 <h1 class="fw-bold display-3">3</h1>
                 <h3 class="driverselect-title pb-1">Result</h3>
                 <select class="form-select fs-5 pt-4" size="11" asp-for="DriverViewModel" asp-items="ViewBag.DriverId"></select>
@@ -94,12 +95,12 @@
                 debugger;
                 var modelId = $(this).val();
 
-                $("select#HomeVm.GpuViewModel").empty();
+                $("select#GpuViewModel").empty();
 
                 $.getJSON(`/Home/GetGpu?id=${modelId}`, function (data) {
                     console.log(data);
                     $.each(data, function (i, item) {
-                        $("select#HomeVm.GpuViewModel").append(`<option value="${item.id}">${item.name}</option>`);
+                        $("select#GpuViewModel").append(`<option value="${item.id}">${item.name}</option>`);
                     });
                 });
             })

@@ -62,8 +62,7 @@ public class HomeController : Controller
             .Select(g => new { g.Id, g.Name });
         return Json(gpus);
     }
-
-    [HttpGet]
+    
     public IActionResult Support()
     {
         SupportViewModel svm = new()
@@ -85,14 +84,14 @@ public class HomeController : Controller
                 Name = "Vigus Driver Software " + driver.Name
             };
 
-        svm.GpuViewModel = _gpudata;
+        //svm.GpuViewModel = _gpudata;
+        //svm.GpuModelVm = _context.GpuModels;
         svm.DriverViewModel = driverdata;
         svm.SeriesVm = _seriesdata;
-        svm.GpuModelVm = _context.GpuModels;
         svm.TechnologyViewModel = _technologydata;
 
-        ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-        ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
+        //ViewData["ModelId"] = new SelectList(_context.GpuModels.OrderByDescending(z => z.Name), "Id", "Name");
+        //ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
         ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
         ViewData["OsId"] = new SelectList(_context.OsVersions, "Id", "Name");
         return View(svm);
