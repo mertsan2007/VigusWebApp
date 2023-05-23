@@ -18,7 +18,7 @@
 
     <div class="row py-4">
         <div class="col-md">
-            <form asp-action="Support" class="row">
+            <form asp-action="Support" class="row" method="post">
                 <div class="col-md-6">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
                         <h1 class="fw-bold display-3">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
-                        <input type="submit" value="submit" class="btn btn-outline-light btn-lg float-end"/>
+                        <input type="submit" value="submit" class="btn btn-outline-light btn-lg float-end" />
                         <h1 class="fw-bold display-3">2</h1>
                         <h3 class="driverselect-title pb-1">Gpu</h3>
                         <select class="form-select fs-5 pt-4" size="11" asp-for="GpuViewModel" asp-items="ViewBag.GpuId"></select>
@@ -57,7 +57,7 @@
                 <a class="btn btn-outline-light btn-lg" asp-action="Support">Reset</a>
                 <h1 class="fw-bold display-3">3</h1>
                 <h3 class="driverselect-title pb-1">Result</h3>
-                <select class="form-select fs-5 pt-4" size="11" asp-for="DriverViewModel" asp-items="ViewBag.DriverId"></select>
+                <select class="form-control fs-5 pt-4" size="9" asp-for="DriverViewModel" asp-items="ViewBag.DriverId"></select>
             </div>
         </div>
     </div>

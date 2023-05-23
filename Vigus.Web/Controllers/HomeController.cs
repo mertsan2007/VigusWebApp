@@ -24,7 +24,7 @@ public class HomeController : Controller
                 Id = gpu.Id,
                 Cores = gpu.Cores,
                 Description = gpu.Description,
-                FullGpuName = $"Vigus {gpu.Name}",
+                FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
                 MemorySizeInGb = gpu.MemorySize + "GB",
                 PriceInDollars = gpu.Price + "$",
                 ReleaseDate = gpu.ReleaseDate,
@@ -55,12 +55,14 @@ public class HomeController : Controller
         {
             return Json("request is null");
         }
+        else
+        {
+            var gpuModel = await _context.GpuModels.FindAsync(id);
 
-        var gpuModel = await _context.GpuModels.FindAsync(id);
-
-        var gpus = gpuModel.Gpus
-            .Select(g => new { g.Id, g.Name });
-        return Json(gpus);
+            var gpus = gpuModel.Gpus
+                .Select(g => new { g.Id, g.Name });
+            return Json(gpus);
+        }
     }
     
     public IActionResult Support()

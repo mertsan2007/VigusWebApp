@@ -6,7 +6,7 @@ using Vigus.Web.Models;
 
 namespace Vigus.Web.Controllers.Admin;
 
-public class GpusController : Controller
+public class GpusController : Controller 
 {
     private readonly VigusGpuContext _context;
 
@@ -14,7 +14,7 @@ public class GpusController : Controller
     {
         _context = context;
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> Filter(GpuFilterModel filterModel)
     {
@@ -55,7 +55,7 @@ public class GpusController : Controller
                 Id = gpu.Id,
                 Cores = gpu.Cores,
                 Description = gpu.Description != null ? gpu.Description : "not set",
-                FullGpuName = $"Vigus {gpu.Name}",
+                FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus "+gpu.Name,
                 MemorySizeInGb = gpu.MemorySize + "GB",
                 PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
                 ReleaseDate = gpu.ReleaseDate,
@@ -70,11 +70,13 @@ public class GpusController : Controller
 
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.Gpus == null) return NotFound();
+        if (id == null || _context.Gpus == null)
+            return NotFound();
 
         var data = await _context.Gpus.Include(g => g.Model)
             .Include(g => g.Image).FirstOrDefaultAsync(m => m.Id == id);
-        if (data == null) return NotFound();
+        if (data == null)
+            return NotFound();
 
         return View(data);
     }
@@ -90,10 +92,14 @@ public class GpusController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
-        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
+        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id,SupportedDriverVersions")] Gpu gpu)
     {
         if (ModelState.IsValid)
         {
+            if (gpu.Name.Contains("Vigus") != true)
+            {
+                gpu.Name = "Vigus " + gpu.Name;
+            }
             _context.Add(gpu);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -107,10 +113,13 @@ public class GpusController : Controller
 
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.Gpus == null) return NotFound();
+        if (id == null || _context.Gpus == null)
+            return NotFound();
 
         var gpu = await _context.Gpus.FindAsync(id);
-        if (gpu == null) return NotFound();
+        if (gpu == null)
+            return NotFound();
+        
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
         ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
@@ -122,7 +131,8 @@ public class GpusController : Controller
     public async Task<IActionResult> Edit(int id,
         [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
     {
-        if (id != gpu.Id) return NotFound();
+        if (id != gpu.Id)
+            return NotFound();
 
         if (ModelState.IsValid)
         {
@@ -149,12 +159,14 @@ public class GpusController : Controller
 
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.Gpus == null) return NotFound();
+        if (id == null || _context.Gpus == null)
+            return NotFound();
 
         var gpu = await _context.Gpus
             .Include(g => g.Model)
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (gpu == null) return NotFound();
+        if (gpu == null)
+            return NotFound();
 
         return View(gpu);
     }
@@ -164,9 +176,12 @@ public class GpusController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Gpus == null) return Problem("Entity set 'VigusGpuContext.Gpus'  is null.");
+        if (_context.Gpus == null)
+            return Problem("Entity set 'VigusGpuContext.Gpus'  is null.");
+        
         var gpu = await _context.Gpus.FindAsync(id);
-        if (gpu != null) _context.Gpus.Remove(gpu);
+        if (gpu != null)
+            _context.Gpus.Remove(gpu);
 
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
