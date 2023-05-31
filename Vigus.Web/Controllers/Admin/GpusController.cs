@@ -89,11 +89,18 @@ public class GpusController : Controller
 
     public IActionResult Create()
     {
-        var driverVersions = _context.Gpus.Include(z=>z.SupportedDriverVersions).Single();
+        GpuCreateViewModel vm = new();
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
         ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
-        return View(driverVersions);
+        
+        vm.SelectListItems = _context.DriverVersions.Select(z => 
+            new SelectListItem()
+            {
+                Text = z.Name, Value = z.Id.ToString()
+            }).ToList();
+
+        return View();
     }
 
     [HttpPost]

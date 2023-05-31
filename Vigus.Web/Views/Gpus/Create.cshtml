@@ -1,4 +1,4 @@
-﻿@model Vigus.Web.Data.Gpu
+﻿@model GpuCreateViewModel
 
 @{
     ViewData["Title"] = "- GPUs";
@@ -59,30 +59,30 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Driver Version</label>
-                <!--<select asp-for="SupportedDriverVersions" class="form-control" asp-items="ViewBag.DriverId"></select>-->
-                <div class="table">
+                <select asp-for="SelectedItems" class="form-control" asp-items="ViewBag.DriverId"></select>
+                <!--<div class="table">
                     <table>
                         <tr>
-                        @{
+                        {
                             int cnt = 0;
 
-                            foreach (var driver in Model.SupportedDriverVersions)
+                            foreach (var driver in ViewBag.DriverId)
                             {
                                 if (cnt++ % 3 == 0)
                                 {
-                                    @:</tr><tr>
+                                    :</tr><tr>
                                 }
-                                @:<td>
+                                :<td>
                                 <input type="checkbox"
                                        name="selectedCourses"
-                                       value="@driver.Id"/>
-                                @driver.Id @:  @driver.Name
-                                @:</td>
+                                       value="driver.Id"/>
+                                driver.Id :  driver.Name
+                                :</td>
                             }
-                            @:</tr>
+                            :</tr>
                         }
                     </table>
-                </div>
+                </div>-->
                 <span asp-validation-for="SupportedDriverVersions" class="text-danger"></span>
 
             </div>
