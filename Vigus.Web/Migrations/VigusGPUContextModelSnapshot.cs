@@ -34,7 +34,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("SupportedDriverVersionsId");
 
-                    b.ToTable("DriverVersionGpu");
+                    b.ToTable("DriverVersionGpu", (string)null);
                 });
 
             modelBuilder.Entity("DriverVersionOsVersion", b =>
@@ -49,7 +49,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("OsVersionsId");
 
-                    b.ToTable("DriverVersionOsVersion");
+                    b.ToTable("DriverVersionOsVersion", (string)null);
                 });
 
             modelBuilder.Entity("GpuModelGpuTechnology", b =>
@@ -64,7 +64,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("GpuTechnologiesId");
 
-                    b.ToTable("GpuModelGpuTechnology");
+                    b.ToTable("GpuModelGpuTechnology", (string)null);
                 });
 
             modelBuilder.Entity("Vigus.Web.Data.DriverVersion", b =>
@@ -93,7 +93,7 @@ namespace Vigus.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("DriverVersions");
+                    b.ToTable("DriverVersions", (string)null);
 
                     b.HasData(
                         new
@@ -164,7 +164,7 @@ namespace Vigus.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Gpus");
+                    b.ToTable("Gpus", (string)null);
 
                     b.HasData(
                         new
@@ -203,7 +203,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("SeriesId");
 
-                    b.ToTable("GpuModels");
+                    b.ToTable("GpuModels", (string)null);
 
                     b.HasData(
                         new
@@ -275,7 +275,7 @@ namespace Vigus.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("GpuTechnologies");
+                    b.ToTable("GpuTechnologies", (string)null);
 
                     b.HasData(
                         new
@@ -315,7 +315,7 @@ namespace Vigus.Web.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
 
                     b.HasData(
                         new
@@ -351,7 +351,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OsVersions");
+                    b.ToTable("OsVersions", (string)null);
 
                     b.HasData(
                         new
@@ -403,7 +403,7 @@ namespace Vigus.Web.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
-                    b.ToTable("Series");
+                    b.ToTable("Series", (string)null);
 
                     b.HasData(
                         new

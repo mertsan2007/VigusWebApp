@@ -11,7 +11,8 @@ public class GpusController : Controller
     private readonly VigusGpuContext _context;
     public IQueryable<Gpu> _gpu;
     public IQueryable<GpusViewModel> _gpudata;
-
+    public GpuCreateViewModel cvm = new();
+    
     public GpusController(VigusGpuContext context)
     {
         _context = context;
@@ -31,6 +32,13 @@ public class GpusController : Controller
                 ModelName = gpu.Model.Name,
                 ImageName = gpu.Image.Name
             };
+
+        cvm.SelectListItems = _context.DriverVersions.OrderByDescending(x => x.Id).Select(d =>
+            new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.Id.ToString()
+            }).ToList();
     }
     
     [HttpPost]
@@ -65,6 +73,18 @@ public class GpusController : Controller
         return View("Index", await data.ToListAsync());
     }
 
+    public async Task CreateDriverVersions(int id, int[] selectedDrivers)
+    {
+        var gpu = await _context.Gpus.FindAsync(id);
+        foreach (var driverId in selectedDrivers)
+        {
+            var driver = new DriverVersion { Id = driverId };
+            _context.DriverVersions.Attach(driver);
+            gpu.SupportedDriverVersions.Add(driver);
+        }
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<IActionResult> Index()
     {
         var data = _gpudata;
@@ -89,24 +109,16 @@ public class GpusController : Controller
 
     public IActionResult Create()
     {
-        GpuCreateViewModel vm = new();
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name");
-        ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
-        
-        vm.SelectListItems = _context.DriverVersions.Select(z => 
-            new SelectListItem()
-            {
-                Text = z.Name, Value = z.Id.ToString()
-            }).ToList();
 
-        return View();
+        return View(cvm);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
-        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id,SupportedDriverVersions")] Gpu gpu, List<int> selectedDriverIds)
+        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id,SupportedDriverVersions")] Gpu gpu, GpuCreatePostModel gpm)
     {
         if (ModelState.IsValid)
         {
@@ -114,30 +126,22 @@ public class GpusController : Controller
             {
                 gpu.Name = "Vigus " + gpu.Name;
             }
-            CreateDriverVersions(gpu.Id, selectedDriverIds);
             _context.Add(gpu);
             await _context.SaveChangesAsync();
+
+            if (gpm.SelectedItems != null || gpm.SelectedItems.Length > 0)
+            {
+                CreateDriverVersions(gpu.Id, gpm.SelectedItems);
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
-        ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
         return View(gpu);
     }
     
-    public async Task CreateDriverVersions(int id, List<int> selectedDriverIds)
-    {
-        var gpu = await _context.Gpus.FindAsync(id);
-        foreach (var driverId in selectedDriverIds)
-        {
-            var driver = new DriverVersion { Id = driverId };
-            _context.DriverVersions.Attach(driver);
-            gpu.SupportedDriverVersions.Add(driver);
-        }
-
-        await _context.SaveChangesAsync();
-    }
 
     public async Task<IActionResult> Edit(int? id)
     {
@@ -150,14 +154,13 @@ public class GpusController : Controller
         
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
-        ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name", gpu.SupportedDriverVersions);
-        return View(gpu);
+        return View(cvm);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id,
-        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id")] Gpu gpu)
+        [Bind("Name,Cores,Tdp,ReleaseDate,Price,MemorySize,Description,ModelId,ImageId,Id,SupportedDriverVersions")] Gpu gpu, GpuCreatePostModel gpm)
     {
         if (id != gpu.Id)
             return NotFound();
@@ -166,6 +169,7 @@ public class GpusController : Controller
         {
             try
             {
+                // yarın tamamlancak
                 _context.Update(gpu);
                 await _context.SaveChangesAsync();
             }

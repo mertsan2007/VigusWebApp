@@ -3,5 +3,5 @@
 public class GpuCreatePostModel
 {
     public int? Id { get; set; }
-    public string[]? SelectedItems { get; set; }
+    public int[]? SelectedItems { get; set; }
 }

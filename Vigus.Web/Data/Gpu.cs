@@ -8,7 +8,7 @@ public class Gpu : EntityBase
     public string? Name { get; set; }
 
     [Required]
-    [Range(1, 5000)]
+    [Range(1, 20000)]
     public int? Cores { get; set; }
 
     [Required]
@@ -36,7 +36,7 @@ public class Gpu : EntityBase
     public virtual GpuModel? Model { get; set; }
 
     [Display(Name = "Driver Versions")]
-    public virtual ICollection<DriverVersion>? SupportedDriverVersions { get; set; }
+    public virtual ICollection<DriverVersion>? SupportedDriverVersions { get; set; } = new List<DriverVersion>();
 
     [Required]
     public int? ImageId { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Vigus.Web.Data.Gpu
+﻿@model GpuCreateViewModel
 
 @{
     ViewData["Title"] = "- GPUs";
@@ -57,13 +57,11 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Driver Version</label>
-                <select asp-for="SupportedDriverVersions" class="form-control" asp-items="ViewBag.DriverId">
-                    <option value="null">Null</option>
-                </select>
+                <select asp-for="SelectedItems" class="form-control"></select>
             </div>
             <hr/>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
