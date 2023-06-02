@@ -60,29 +60,6 @@
             <div class="form-group">
                 <label class="control-label">Driver Version</label>
                 <select asp-for="SelectedItems" class="form-control" asp-items="Model.SelectListItems"></select>
-                <!--<div class="table">
-                    <table>
-                        <tr>
-                        {
-                            int cnt = 0;
-
-                            foreach (var driver in ViewBag.DriverId)
-                            {
-                                if (cnt++ % 3 == 0)
-                                {
-                                    :</tr><tr>
-                                }
-                                :<td>
-                                <input type="checkbox"
-                                       name="selectedCourses"
-                                       value="driver.Id"/>
-                                driver.Id :  driver.Name
-                                :</td>
-                            }
-                            :</tr>
-                        }
-                    </table>
-                </div>-->
                 <span asp-validation-for="SupportedDriverVersions" class="text-danger"></span>
 
             </div>

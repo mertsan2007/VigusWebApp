@@ -2,36 +2,37 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
+using Vigus.Web.Migrations;
 using Vigus.Web.Models;
 
 namespace Vigus.Web.Controllers.Admin;
 
-public class GpusController : Controller 
+public class GpusController : Controller
 {
     private readonly VigusGpuContext _context;
     public IQueryable<Gpu> _gpu;
     public IQueryable<GpusViewModel> _gpudata;
     public GpuCreateViewModel cvm = new();
-    
+
     public GpusController(VigusGpuContext context)
     {
         _context = context;
         _gpu = _context.Gpus.Include(g => g.Model);
         _gpudata = from gpu in _gpu
                    orderby gpu.Id
-            select new GpusViewModel
-            {
-                Id = gpu.Id,
-                Cores = gpu.Cores,
-                Description = gpu.Description != null ? gpu.Description : "not set",
-                FullGpuName = $"Vigus {gpu.Name}",
-                MemorySizeInGb = gpu.MemorySize + "GB",
-                PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
-                ReleaseDate = gpu.ReleaseDate,
-                TdpInWatts = gpu.Tdp + "W",
-                ModelName = gpu.Model.Name,
-                ImageName = gpu.Image.Name
-            };
+                   select new GpusViewModel
+                   {
+                       Id = gpu.Id,
+                       Cores = gpu.Cores,
+                       Description = gpu.Description != null ? gpu.Description : "not set",
+                       FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
+                       MemorySizeInGb = gpu.MemorySize + "GB",
+                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+                       ReleaseDate = gpu.ReleaseDate,
+                       TdpInWatts = gpu.Tdp + "W",
+                       ModelName = gpu.Model.Name,
+                       ImageName = gpu.Image.Name
+                   };
 
         cvm.SelectListItems = _context.DriverVersions.OrderByDescending(x => x.Id).Select(d =>
             new SelectListItem
@@ -40,7 +41,7 @@ public class GpusController : Controller
                 Value = d.Id.ToString()
             }).ToList();
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Filter(GpuFilterModel filterModel)
     {
@@ -55,20 +56,20 @@ public class GpusController : Controller
             );
 
         var data = from gpu in gpus
-            orderby gpu.Id
-            select new GpusViewModel
-            {
-                Id = gpu.Id,
-                Cores = gpu.Cores,
-                Description = gpu.Description != null ? gpu.Description : "not set",
-                FullGpuName = $"Vigus {gpu.Name}",
-                MemorySizeInGb = gpu.MemorySize + "GB",
-                PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
-                ReleaseDate = gpu.ReleaseDate,
-                TdpInWatts = gpu.Tdp + "W",
-                ModelName = gpu.Model.Name,
-                ImageName = gpu.Image.Name
-            };
+                   orderby gpu.Id
+                   select new GpusViewModel
+                   {
+                       Id = gpu.Id,
+                       Cores = gpu.Cores,
+                       Description = gpu.Description != null ? gpu.Description : "not set",
+                       FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
+                       MemorySizeInGb = gpu.MemorySize + "GB",
+                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+                       ReleaseDate = gpu.ReleaseDate,
+                       TdpInWatts = gpu.Tdp + "W",
+                       ModelName = gpu.Model.Name,
+                       ImageName = gpu.Image.Name
+                   };
 
         return View("Index", await data.ToListAsync());
     }
@@ -141,7 +142,7 @@ public class GpusController : Controller
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
         return View(gpu);
     }
-    
+
 
     public async Task<IActionResult> Edit(int? id)
     {
@@ -151,7 +152,18 @@ public class GpusController : Controller
         var gpu = await _context.Gpus.FindAsync(id);
         if (gpu == null)
             return NotFound();
-        
+
+        cvm.Id = gpu.Id;
+        cvm.Name = gpu.Name;
+        cvm.Cores = gpu.Cores;
+        cvm.Tdp = gpu.Tdp;
+        cvm.ReleaseDate = gpu.ReleaseDate;
+        cvm.Price = gpu.Price;
+        cvm.MemorySize = gpu.MemorySize;
+        cvm.Description = gpu.Description;
+        cvm.ModelId = gpu.ModelId;
+        cvm.ImageId = gpu.ImageId;
+
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name", gpu.ModelId);
         ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Name", gpu.ImageId);
         return View(cvm);
@@ -169,9 +181,25 @@ public class GpusController : Controller
         {
             try
             {
-                // yarın tamamlancak
-                _context.Update(gpu);
-                await _context.SaveChangesAsync();
+                if (gpm.SelectedItems == null)
+                {
+                    //tüm gpudaki driverleri sil
+                    _context.Update(gpu);
+                    await _context.SaveChangesAsync();
+                }
+                else if (gpm.SelectedItems != null || gpm.SelectedItems.Length > 0)
+                {
+                    //gpu.SupportedDriverVersions.Clear(); notworking
+                    foreach (var driverId in gpm.SelectedItems)
+                    {
+                        var driver = new DriverVersion { Id = driverId };
+                        _context.DriverVersions.Attach(driver);
+                        gpu.SupportedDriverVersions.Add(driver);
+                    }
+                    _context.Update(gpu);
+                    await _context.SaveChangesAsync();
+                }
+                
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -210,7 +238,7 @@ public class GpusController : Controller
     {
         if (_context.Gpus == null)
             return Problem("Entity set 'VigusGpuContext.Gpus'  is null.");
-        
+
         var gpu = await _context.Gpus.FindAsync(id);
         if (gpu != null)
             _context.Gpus.Remove(gpu);
