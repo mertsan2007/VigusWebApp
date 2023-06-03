@@ -17,17 +17,17 @@ public class GpusController : Controller
     public GpusController(VigusGpuContext context)
     {
         _context = context;
-        _gpu = _context.Gpus.Include(g => g.Model);
+        _gpu = _context.Gpus.Include(g => g.Model).Include(g => g.Image);
         _gpudata = from gpu in _gpu
                    orderby gpu.Id
                    select new GpusViewModel
                    {
                        Id = gpu.Id,
                        Cores = gpu.Cores,
-                       Description = gpu.Description != null ? gpu.Description : "not set",
+                       Description = gpu.Description != null ? gpu.Description : "description not set",
                        FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
                        MemorySizeInGb = gpu.MemorySize + "GB",
-                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "price not set",
                        ReleaseDate = gpu.ReleaseDate,
                        TdpInWatts = gpu.Tdp + "W",
                        ModelName = gpu.Model.Name,
@@ -61,10 +61,10 @@ public class GpusController : Controller
                    {
                        Id = gpu.Id,
                        Cores = gpu.Cores,
-                       Description = gpu.Description != null ? gpu.Description : "not set",
+                       Description = gpu.Description != null ? gpu.Description : "description not set",
                        FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
                        MemorySizeInGb = gpu.MemorySize + "GB",
-                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "not set",
+                       PriceInDollars = gpu.Price != null ? gpu.Price + "$" : "price not set",
                        ReleaseDate = gpu.ReleaseDate,
                        TdpInWatts = gpu.Tdp + "W",
                        ModelName = gpu.Model.Name,
@@ -88,10 +88,8 @@ public class GpusController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var data = _gpudata;
-
         ViewData["ModelId"] = new SelectList(_context.GpuModels, "Id", "Name");
-        return View(await data.ToListAsync());
+        return View(await _gpudata.ToListAsync());
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -99,9 +97,7 @@ public class GpusController : Controller
         if (id == null || _context.Gpus == null)
             return NotFound();
 
-        var data = await _gpu
-            .Include(g => g.Image)
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var data = _gpudata.FirstOrDefault(x => x.Id == id);
         if (data == null)
             return NotFound();
 
@@ -177,19 +173,27 @@ public class GpusController : Controller
         if (id != gpu.Id)
             return NotFound();
 
+
         if (ModelState.IsValid)
         {
             try
             {
                 if (gpm.SelectedItems == null)
                 {
-                    //tüm gpudaki driverleri sil
-                    _context.Update(gpu);
+                    var foundgpu = await _context.Gpus.FindAsync(id);
+                    foundgpu = gpu;
+                    if (foundgpu.SupportedDriverVersions != null)
+                    {
+                        foreach (var drivertoremove in foundgpu.SupportedDriverVersions.ToList())
+                        {
+                            _context.DriverVersions.Attach(drivertoremove);
+                            foundgpu.SupportedDriverVersions.Remove(drivertoremove);
+                        }
+                    }
                     await _context.SaveChangesAsync();
                 }
                 else if (gpm.SelectedItems != null || gpm.SelectedItems.Length > 0)
                 {
-                    //gpu.SupportedDriverVersions.Clear(); notworking
                     foreach (var driverId in gpm.SelectedItems)
                     {
                         var driver = new DriverVersion { Id = driverId };
@@ -199,7 +203,6 @@ public class GpusController : Controller
                     _context.Update(gpu);
                     await _context.SaveChangesAsync();
                 }
-                
             }
             catch (DbUpdateConcurrencyException)
             {

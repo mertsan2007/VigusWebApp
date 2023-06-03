@@ -1,4 +1,4 @@
-﻿@model Vigus.Web.Data.Gpu
+﻿@model GpusViewModel
 
 @{
     ViewData["Title"] = "- GPUs";
@@ -10,13 +10,13 @@
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="@("/Images/UserUploads/" + Model.Image.Name)" class="img-fluid rounded-start">
+                <img src="@("/Images/UserUploads/" + Model.ImageName)" class="img-fluid rounded-start">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">@Model.Name</h5>
+                    <h5 class="card-title">@Model.FullGpuName</h5>
                     <p class="card-text">@Model.Description</p>
-                    @Model.MemorySize | @Model.Price | @Model.ReleaseDate | @Model.Tdp
+                    @Model.MemorySizeInGb | @Model.PriceInDollars | @Model.ReleaseDate | @Model.TdpInWatts
                 </div>
             </div>
         </div>
