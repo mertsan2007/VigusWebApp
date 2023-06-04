@@ -1,5 +1,5 @@
 # VigusWebApp
-a website for imaginary semi conductor brand vigus made with asp.net core mvc 7.0 (it's not finished yet)
+gerçek olmayan bir firmanın websitesi. sitenin amacı bu firmanın ürünleri hakkında bilgi sahibi olma ve indirilebilir içeriklerini görüntülemedir 
 
 # not:
 uygulamayı çalıştırmadan önce package manager consola update-database yazınız.
