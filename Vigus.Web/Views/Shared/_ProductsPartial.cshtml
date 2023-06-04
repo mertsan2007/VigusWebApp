@@ -7,11 +7,12 @@
             <div class="d-flex overflow-auto">
                 @foreach (var gpu in Model.GpuViewModel)
                 {
-                    <div class="card rounded-4 me-4 overflow-hidden" style="min-width: 80px;" id="@gpu.Id" onclick="console.log(this.id);">
-                        <img src="@(gpu.ImageName == null ? "~/Images/UserUploads/defaultgpu.png" : "~/Images/UserUploads/" + gpu.ImageName)" asp-append-version="true" class="card-img-top" alt="GPU"/>
-                        <div class="card-body">
-                            <h5 class="card-title">@gpu.FullGpuName</h5>
-                        </div>
+                    <div class="card rounded-4 me-4 overflow-hidden" style="min-width: 80px;">
+                        <img src="@(gpu.ImageName == null ? "~/Images/UserUploads/defaultgpu.png" : "~/Images/UserUploads/" + gpu.ImageName)" asp-append-version="true" class="card-img-top" alt="GPU" />
+                            <div class="card-body">
+                                <h5 class="card-title">@gpu.FullGpuName</h5>
+                            </div>
+                        <a asp-controller="Gpus" asp-action="Details" asp-route-id="@gpu.Id" class="btn-sm btn-outline-dark">Details ></a>
                     </div>
                 }
             </div>

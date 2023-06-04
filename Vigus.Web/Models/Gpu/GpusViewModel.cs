@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Vigus.Web.Models;
+namespace Vigus.Web.Models.Gpu;
 
 public class GpusViewModel
 {
     public int Id { get; set; }
 
-    [Required] [Display(Name = "Name")] public string? FullGpuName { get; set; }
+    [Required][Display(Name = "Name")] public string? FullGpuName { get; set; }
 
-    [Required] [Range(1, 100)] public int? Cores { get; set; }
+    [Required][Range(1, 100)] public int? Cores { get; set; }
 
-    [Required] [Display(Name = "TDP (W)")] public string? TdpInWatts { get; set; }
+    [Required][Display(Name = "TDP (W)")] public string? TdpInWatts { get; set; }
 
     [Required]
     [Display(Name = "Release Date")]

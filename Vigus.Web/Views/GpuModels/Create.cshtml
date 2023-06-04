@@ -1,4 +1,4 @@
-﻿@model Vigus.Web.Data.GpuModel
+﻿@model Vigus.Web.Models.GpuModel.GpuModelCreateVm
 
 @{
     ViewData["Title"] = "Create";
@@ -20,6 +20,10 @@
             <div class="form-group">
                 <label asp-for="SeriesId" class="control-label"></label>
                 <select asp-for="SeriesId" class="form-control" asp-items="ViewBag.SeriesId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GpuTechnologies" class="control-label"></label>
+                <select asp-for="SelectedItems" class="form-control" asp-items="ViewBag.TechnologyId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary"/>

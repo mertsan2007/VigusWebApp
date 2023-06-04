@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using Vigus.Web.Data;
 
 namespace Vigus.Web.Controllers.Admin;
@@ -33,18 +36,39 @@ public class DriverVersionsController : Controller
 
     public IActionResult Create()
     {
+        //dv.SelectListItems = _context.OsVersions.Select(x =>
+        //    new SelectListItem
+        //    {
+        //        Text = x.Name,
+        //        Value = x.Id.ToString()
+        //    }).ToList();
+        ViewData["OsId"] = new SelectList(_context.OsVersions, "Id", "Name");
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
-        [Bind("Name,Description,KnownIssues,FixedChanges,Id")] DriverVersion driverVersion)
+        [Bind("Name,Description,KnownIssues,FixedChanges,Id,OsVersions")] DriverVersion driverVersion)
     {
         if (ModelState.IsValid)
         {
+
             _context.Add(driverVersion);
             await _context.SaveChangesAsync();
+
+            if (driverVersion.SelectedItems != null || driverVersion.SelectedItems.Any())
+            {
+                var dversion = await _context.DriverVersions.FindAsync(driverVersion.Id);
+                foreach (var osId in driverVersion.SelectedItems)
+                {
+                    var os = new OsVersion { Id = osId };
+                    _context.OsVersions.Attach(os);
+                    dversion.OsVersions.Add(os);
+                }
+
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,4 +1,5 @@
 ﻿using Vigus.Web.Data;
+using Vigus.Web.Models.Gpu;
 
 namespace Vigus.Web.Models;
 

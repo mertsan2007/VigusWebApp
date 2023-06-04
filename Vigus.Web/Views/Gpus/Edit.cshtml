@@ -1,4 +1,5 @@
-﻿@model GpuCreateViewModel
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Vigus.Web.Models.Gpu.GpuDriverViewModel
 
 @{
     ViewData["Title"] = "- GPUs";
@@ -57,7 +58,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Driver Version</label>
-                <select asp-for="SelectedItems" class="form-control" asp-items="Model.SelectListItems"></select>
+                <select asp-for="SelectedItems" class="form-control" asp-items="ViewBag.DriverId"></select>
             </div>
             <hr/>
             <div class="form-group">

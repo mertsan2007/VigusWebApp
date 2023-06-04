@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vigus.Web.Data;
 
@@ -11,9 +12,11 @@ using Vigus.Web.Data;
 namespace Vigus.Web.Migrations
 {
     [DbContext(typeof(VigusGpuContext))]
-    partial class VigusGpuContextModelSnapshot : ModelSnapshot
+    [Migration("20230604095442_Seed3")]
+    partial class Seed3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,54 +40,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("SupportedDriverVersionsId");
 
-                    b.ToTable("DriverVersionGpu", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GpusId = 1,
-                            SupportedDriverVersionsId = 1
-                        },
-                        new
-                        {
-                            GpusId = 1,
-                            SupportedDriverVersionsId = 2
-                        },
-                        new
-                        {
-                            GpusId = 1,
-                            SupportedDriverVersionsId = 3
-                        },
-                        new
-                        {
-                            GpusId = 2,
-                            SupportedDriverVersionsId = 1
-                        },
-                        new
-                        {
-                            GpusId = 2,
-                            SupportedDriverVersionsId = 2
-                        },
-                        new
-                        {
-                            GpusId = 3,
-                            SupportedDriverVersionsId = 3
-                        },
-                        new
-                        {
-                            GpusId = 3,
-                            SupportedDriverVersionsId = 1
-                        },
-                        new
-                        {
-                            GpusId = 4,
-                            SupportedDriverVersionsId = 2
-                        },
-                        new
-                        {
-                            GpusId = 5,
-                            SupportedDriverVersionsId = 3
-                        });
+                    b.ToTable("DriverVersionGpu");
                 });
 
             modelBuilder.Entity("DriverVersionOsVersion", b =>
@@ -99,69 +55,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("OsVersionsId");
 
-                    b.ToTable("DriverVersionOsVersion", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            DriverVersionsId = 1,
-                            OsVersionsId = 1
-                        },
-                        new
-                        {
-                            DriverVersionsId = 1,
-                            OsVersionsId = 2
-                        },
-                        new
-                        {
-                            DriverVersionsId = 1,
-                            OsVersionsId = 3
-                        },
-                        new
-                        {
-                            DriverVersionsId = 1,
-                            OsVersionsId = 5
-                        },
-                        new
-                        {
-                            DriverVersionsId = 2,
-                            OsVersionsId = 2
-                        },
-                        new
-                        {
-                            DriverVersionsId = 2,
-                            OsVersionsId = 3
-                        },
-                        new
-                        {
-                            DriverVersionsId = 2,
-                            OsVersionsId = 5
-                        },
-                        new
-                        {
-                            DriverVersionsId = 2,
-                            OsVersionsId = 6
-                        },
-                        new
-                        {
-                            DriverVersionsId = 3,
-                            OsVersionsId = 3
-                        },
-                        new
-                        {
-                            DriverVersionsId = 3,
-                            OsVersionsId = 4
-                        },
-                        new
-                        {
-                            DriverVersionsId = 3,
-                            OsVersionsId = 5
-                        },
-                        new
-                        {
-                            DriverVersionsId = 3,
-                            OsVersionsId = 6
-                        });
+                    b.ToTable("DriverVersionOsVersion");
                 });
 
             modelBuilder.Entity("GpuModelGpuTechnology", b =>
@@ -176,54 +70,7 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("GpuTechnologiesId");
 
-                    b.ToTable("GpuModelGpuTechnology", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GpuModelsId = 1,
-                            GpuTechnologiesId = 2
-                        },
-                        new
-                        {
-                            GpuModelsId = 1,
-                            GpuTechnologiesId = 3
-                        },
-                        new
-                        {
-                            GpuModelsId = 2,
-                            GpuTechnologiesId = 2
-                        },
-                        new
-                        {
-                            GpuModelsId = 2,
-                            GpuTechnologiesId = 3
-                        },
-                        new
-                        {
-                            GpuModelsId = 3,
-                            GpuTechnologiesId = 3
-                        },
-                        new
-                        {
-                            GpuModelsId = 4,
-                            GpuTechnologiesId = 3
-                        },
-                        new
-                        {
-                            GpuModelsId = 5,
-                            GpuTechnologiesId = 2
-                        },
-                        new
-                        {
-                            GpuModelsId = 6,
-                            GpuTechnologiesId = 3
-                        },
-                        new
-                        {
-                            GpuModelsId = 7,
-                            GpuTechnologiesId = 2
-                        });
+                    b.ToTable("GpuModelGpuTechnology");
                 });
 
             modelBuilder.Entity("Vigus.Web.Data.DriverVersion", b =>

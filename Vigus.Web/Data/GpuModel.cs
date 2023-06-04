@@ -9,5 +9,5 @@ public class GpuModel : EntityBase
     public int SeriesId { get; set; }
     public virtual Series? Series { get; set; }
 
-    public virtual ICollection<GpuTechnology>? GpuTechnologies { get; set; }
+    public virtual ICollection<GpuTechnology>? GpuTechnologies { get; set; } = new List<GpuTechnology>();
 }

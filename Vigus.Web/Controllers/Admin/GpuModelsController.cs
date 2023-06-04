@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
+using Vigus.Web.Models.GpuModel;
 
 namespace Vigus.Web.Controllers.Admin;
 
@@ -14,14 +15,12 @@ public class GpuModelsController : Controller
         _context = context;
     }
 
-    // GET: GpuModels
     public async Task<IActionResult> Index()
     {
         var vigusGpuContext = _context.GpuModels.Include(g => g.Series);
         return View(await vigusGpuContext.ToListAsync());
     }
 
-    // GET: GpuModels/Details/5
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null || _context.GpuModels == null) return NotFound();
@@ -34,24 +33,38 @@ public class GpuModelsController : Controller
         return View(gpuModel);
     }
 
-    // GET: GpuModels/Create
     public IActionResult Create()
     {
-        ViewData["SeriesId"] = new SelectList(_context.Series, "Id", "Id");
+        ViewData["SeriesId"] = new SelectList(_context.Series, "Id", "Name");
+        ViewData["TechnologyId"] = new SelectList(_context.GpuTechnologies, "Id", "Name");
         return View();
     }
 
-    // POST: GpuModels/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Name,SeriesId,Id")] GpuModel gpuModel)
+    public async Task<IActionResult> Create([Bind("Name,SeriesId,Id,GpuTechnologies")] GpuModel gpuModel, GpuModelCreateVm gcm)
     {
         if (ModelState.IsValid)
         {
+            if (gpuModel.Name.Contains("Serisi") || gpuModel.Name.Contains("Series") == false)
+            {
+                gpuModel.Name = gpuModel.Name + " Serisi";
+            }
+
             _context.Add(gpuModel);
             await _context.SaveChangesAsync();
+            if (gcm.SelectedItems != null || gcm.SelectedItems.Any())
+            {
+                var gmodel = await _context.GpuModels.FindAsync(gpuModel.Id);
+                foreach (var technologyId in gcm.SelectedItems)
+                {
+                    var technology = new GpuTechnology { Id = technologyId};
+                    _context.GpuTechnologies.Attach(technology);
+                    gmodel.GpuTechnologies.Add(technology);
+                }
+
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -59,7 +72,6 @@ public class GpuModelsController : Controller
         return View(gpuModel);
     }
 
-    // GET: GpuModels/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null || _context.GpuModels == null) return NotFound();
@@ -70,9 +82,6 @@ public class GpuModelsController : Controller
         return View(gpuModel);
     }
 
-    // POST: GpuModels/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Name,SeriesId,Id")] GpuModel gpuModel)
@@ -96,11 +105,10 @@ public class GpuModelsController : Controller
             return RedirectToAction(nameof(Index));
         }
 
-        ViewData["SeriesId"] = new SelectList(_context.Series, "Id", "Id", gpuModel.SeriesId);
+        ViewData["SeriesId"] = new SelectList(_context.Series, "Id", "Name", gpuModel.SeriesId);
         return View(gpuModel);
     }
 
-    // GET: GpuModels/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null || _context.GpuModels == null) return NotFound();
@@ -113,7 +121,6 @@ public class GpuModelsController : Controller
         return View(gpuModel);
     }
 
-    // POST: GpuModels/Delete/5
     [HttpPost]
     [ActionName("Delete")]
     [ValidateAntiForgeryToken]

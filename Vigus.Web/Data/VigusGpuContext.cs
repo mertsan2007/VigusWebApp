@@ -23,9 +23,6 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Gpu>().Property(col => col.ReleaseDate)
             .HasDefaultValueSql("getdate()");
 
-        modelBuilder.Entity<Gpu>().HasIndex(col => col.Name)
-            .IsUnique();
-
         modelBuilder.Entity<Series>().HasIndex(col => col.Name)
             .IsUnique();
 
@@ -41,31 +38,90 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<Image>().HasIndex(col => col.Name)
             .IsUnique();
 
+
         #region seed
 
+        modelBuilder.Entity<Gpu>()
+            .HasMany(x => x.SupportedDriverVersions)
+            .WithMany(x => x.Gpus)
+            .UsingEntity(x => x
+                .ToTable("DriverVersionGpu")
+                .HasData(
+                    new { GpusId = 1, SupportedDriverVersionsId = 1},
+                    new { GpusId = 1, SupportedDriverVersionsId = 2 },
+                    new { GpusId = 1, SupportedDriverVersionsId = 3 },
+                    new { GpusId = 2, SupportedDriverVersionsId = 1 },
+                    new { GpusId = 2, SupportedDriverVersionsId = 2 },
+                    new { GpusId = 3, SupportedDriverVersionsId = 3 },
+                    new { GpusId = 3, SupportedDriverVersionsId = 1 },
+                    new { GpusId = 4, SupportedDriverVersionsId = 2 },
+                    new { GpusId = 5, SupportedDriverVersionsId = 3 }
+                )
+            );
+
+        modelBuilder.Entity<GpuModel>()
+            .HasMany(x => x.GpuTechnologies)
+            .WithMany(x => x.GpuModels)
+            .UsingEntity(x => x
+                .ToTable("GpuModelGpuTechnology")
+                .HasData(
+                    new { GpuModelsId = 1, GpuTechnologiesId = 2},
+                    new { GpuModelsId = 1, GpuTechnologiesId = 3 },
+                    new { GpuModelsId = 2, GpuTechnologiesId = 2 },
+                    new { GpuModelsId = 2, GpuTechnologiesId = 3 },
+                    new { GpuModelsId = 3, GpuTechnologiesId = 3 },
+                    new { GpuModelsId = 4, GpuTechnologiesId = 3 },
+                    new { GpuModelsId = 5, GpuTechnologiesId = 2 },
+                    new { GpuModelsId = 6, GpuTechnologiesId = 3 },
+                    new { GpuModelsId = 7, GpuTechnologiesId = 2 }
+                )
+            );
+
+        modelBuilder.Entity<DriverVersion>()
+            .HasMany(x => x.OsVersions)
+            .WithMany(x => x.DriverVersions)
+            .UsingEntity(x => x
+                .ToTable("DriverVersionOsVersion")
+                .HasData(
+                    new { DriverVersionsId = 1, OsVersionsId = 1},
+                    new { DriverVersionsId = 1, OsVersionsId = 2 },
+                    new { DriverVersionsId = 1, OsVersionsId = 3 },
+                    new { DriverVersionsId = 1, OsVersionsId = 5 },
+                    new { DriverVersionsId = 2, OsVersionsId = 2 },
+                    new { DriverVersionsId = 2, OsVersionsId = 3 },
+                    new { DriverVersionsId = 2, OsVersionsId = 5 },
+                    new { DriverVersionsId = 2, OsVersionsId = 6 },
+                    new { DriverVersionsId = 3, OsVersionsId = 3 },
+                    new { DriverVersionsId = 3, OsVersionsId = 4 },
+                    new { DriverVersionsId = 3, OsVersionsId = 5 },
+                    new { DriverVersionsId = 3, OsVersionsId = 6 }
+                    )
+            );
+
         modelBuilder.Entity<Series>().HasData(
-            new Series { Id = 1, Name = "C Series" },
-            new Series { Id = 2, Name = "B Series" },
-            new Series { Id = 3, Name = "A Series" }
+            new Series { Id = 1, Name = "C Serisi" },
+            new Series { Id = 2, Name = "B Serisi" },
+            new Series { Id = 3, Name = "A Serisi" }
         );
 
         modelBuilder.Entity<GpuModel>().HasData(
-            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series" },
-            new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Series" },
-            new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Series" },
-            new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Series" },
-            new GpuModel { Id = 5, SeriesId = 1, Name = "C 80 Series" },
-            new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Series" },
-            new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Series" }
+            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Serisi" },
+            new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Serisi" },
+            new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Serisi" },
+            new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Serisi" },
+            new GpuModel { Id = 5, SeriesId = 1, Name = "C 80 Serisi" },
+            new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Serisi" },
+            new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Serisi" }
         );
 
         modelBuilder.Entity<DriverVersion>().HasData(
-            new DriverVersion { Id = 1, Name = "v1.0.2", Description = "First release for legacy GPUs" },
+            new DriverVersion { Id = 1, Name = "v1.0.2", Description = "ilk sürüm" },
             new DriverVersion
             {
-                Id = 2, Name = "v1.1.0", Description = "Added support for more variety of GPUs",
-                KnownIssues = "Random crash may occur", FixedChanges = "Low performance fixed"
-            }
+                Id = 2, Name = "v1.1.0", Description = "ikinci sürüm",
+                KnownIssues = "aaaa", FixedChanges = "hata düzeltmesi"
+            },
+            new DriverVersion { Id = 3, Name = "v1.1.1", FixedChanges = "hata düzeltmeleri"}
         );
 
         modelBuilder.Entity<Image>().HasData(
@@ -86,12 +142,12 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<GpuTechnology>().HasData(
             new GpuTechnology
             {
-                Id = 2, Name = "D3d Optimizations", Description = "DirectX Optimisations for Vigus Graphics",
+                Id = 2, Name = "teknoloji1", Description = "açıklama",
                 ImageId = 3
             },
             new GpuTechnology
             {
-                Id = 3, Name = "VigusBoost", Description = "Boost performance with minimal resolution change",
+                Id = 3, Name = "teknoloji2", Description = "açıklama",
                 ImageId = 3
             }
         );
@@ -100,14 +156,105 @@ public class VigusGpuContext : DbContext
             new Gpu
             {
                 Id = 1,
-                Name = "C98X",
+                Name = "Vigus C900",
+                ModelId = 6,
+                Description = "ilk gpu",
+                Cores = 4750,
+                ImageId = 1,
+                MemorySize = 12,
+                Price = 899.99m,
+                Tdp = 350,
+                ReleaseDate = new DateTime(2021,5,15)
+            },
+            new Gpu
+            {
+                Id = 2,
+                Name = "Vigus C98X",
                 ModelId = 4,
-                Description = "High-end GPU that is ready to game and compute. Built by Vigus.",
+                Description = "gpu",
                 Cores = 6000,
                 ImageId = 1,
                 MemorySize = 18,
                 Price = 899.99m,
                 Tdp = 300
+            },
+            new Gpu
+            {
+                Id = 3,
+                Name = "Vigus C98X 20GB",
+                ModelId = 4,
+                Cores = 6200,
+                ImageId = 1,
+                MemorySize = 20,
+                Price = 949.99m,
+                Tdp = 300
+            },
+            new Gpu
+            {
+                Id = 4,
+                Name = "Vigus C98",
+                ModelId = 4,
+                Cores = 5500,
+                ImageId = 1,
+                MemorySize = 16,
+                Price = 749.99m,
+                Tdp = 250
+            },
+            new Gpu
+            {
+                Id = 5,
+                Name = "Vigus C87X",
+                ModelId = 5,
+                Cores = 4800,
+                ImageId = 1,
+                MemorySize = 16,
+                Price = 699.99m,
+                Tdp = 225
+            },
+            new Gpu
+            {
+                Id = 6,
+                Name = "Vigus C85",
+                ModelId = 5,
+                Cores = 4000,
+                ImageId = 1,
+                MemorySize = 12,
+                Price = 599.99m,
+                Tdp = 180
+            },
+            new Gpu
+            {
+                Id = 7,
+                Name = "Vigus B573",
+                ModelId = 2,
+                Cores = 2100,
+                ImageId = 1,
+                MemorySize = 8,
+                Price = 299.99m,
+                Tdp = 100
+            },
+            new Gpu
+            {
+                Id = 8,
+                Name = "Vigus B67",
+                ModelId = 3,
+                Cores = 3000,
+                ImageId = 1,
+                MemorySize = 10,
+                Price = 319.99m,
+                Tdp = 100
+            },
+            new Gpu
+            {
+                Id = 9,
+                Name = "Vigus A100",
+                Description = "düşük güç tüketimi",
+                ModelId = 7,
+                Cores = 1200,
+                ImageId = 1,
+                MemorySize = 4,
+                Price = 149.99m,
+                Tdp = 75
             }
         );
 

@@ -6,7 +6,7 @@
 <h3 class="text-center py-3 m-0">Drivers & Support</h3>
 <div>
     <div class="h-100 p-5 bg-light border border-5 border-dark rounded-4">
-        <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">Vigus Driver Software</h2>
+        <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">y5tgfdsfsdsh</h2>
         <div class="row">
             <div class="col-8">
                 <p class="py-3 m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -17,32 +17,23 @@
     </div>
 
     <div class="row py-4">
-        <div class="col-md">
-            <form asp-action="Support" class="row" method="post">
-                <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
+                <h1 class="fw-bold display-3">
+                    <label asp-for="GpuModelVm">1</label>
+                </h1>
+                <h3 class="driverselect-title pb-1">Seri seçiniz</h3>
+                <select class="form-control fs-5" size="11" asp-for="GpuModelVm" asp-items="ViewBag.ModelId"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="Support" method="post">
+                <div class="h-100">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
-                        <h1 class="fw-bold display-3">
-                            <label asp-for="GpuModelVm">1</label>
-                        </h1>
-                        <h3 class="driverselect-title pb-1">Series</h3>
-                        <div class="pb-2">
-                            <div class="btn-group container px-0" role="group">
-                                @foreach (var item in Model.SeriesVm)
-                                {
-                                    <input type="radio" class="btn-check" name="radio" id="@item.Id">
-                                    <label class="btn btn-outline-light" for="@item.Id">@item.Name</label>
-                                }
-                            </div>
-                        </div>
-                        <select class="form-control fs-5" size="10" asp-for="GpuModelVm" asp-items="ViewBag.ModelId"></select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
-                        <input type="submit" value="submit" class="btn btn-outline-light btn-lg float-end" />
+                        <input type="submit" value="formu gönder" class="btn btn-outline-light btn-lg float-end" />
                         <h1 class="fw-bold display-3">2</h1>
-                        <h3 class="driverselect-title pb-1">Gpu</h3>
-                        <select class="form-select fs-5 pt-4" size="11" asp-for="GpuViewModel" asp-items="ViewBag.GpuId"></select>
+                        <h3 class="driverselect-title pb-1">Gpu seçiniz</h3>
+                        <select class="form-select fs-5 pt-4" size="11" asp-for="SelectedItems" asp-items="ViewBag.GpuId"></select>
                     </div>
                 </div>
             </form>
@@ -50,14 +41,11 @@
         <div class="col-md-4">
             <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light" style="background-color: #156c30 !important;">
                 <div class="float-end">
-                    <svg width="16" height="16" fill="currentColor">
-                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
-                    </svg>
+                    <a class="btn btn-outline-light btn-lg" asp-action="Support">sıfırla</a>
                 </div>
-                <a class="btn btn-outline-light btn-lg" asp-action="Support">Reset</a>
                 <h1 class="fw-bold display-3">3</h1>
-                <h3 class="driverselect-title pb-1">Result</h3>
-                <select class="form-control fs-5 pt-4" size="9" asp-for="DriverViewModel" asp-items="ViewBag.DriverId"></select>
+                <h3 class="driverselect-title pb-1">sonuç</h3>
+                <select class="form-control fs-5 pt-4" size="11" asp-items="Model.SelectListItems"></select>
             </div>
         </div>
     </div>
@@ -92,15 +80,14 @@
     <script>
         $(function () {
             $("select#GpuModelVm").change(function () {
-                debugger;
                 var modelId = $(this).val();
 
-                $("select#GpuViewModel").empty();
+                $("select#SelectedItems").empty();
 
                 $.getJSON(`/Home/GetGpu?id=${modelId}`, function (data) {
                     console.log(data);
                     $.each(data, function (i, item) {
-                        $("select#GpuViewModel").append(`<option value="${item.id}">${item.name}</option>`);
+                        $("select#SelectedItems").append(`<option value="${item.id}">${item.name}</option>`);
                     });
                 });
             })

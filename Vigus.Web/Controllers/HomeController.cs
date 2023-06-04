@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vigus.Web.Data;
 using Vigus.Web.Models;
+using Vigus.Web.Models.Gpu;
 
 namespace Vigus.Web.Controllers;
 
@@ -18,20 +19,20 @@ public class HomeController : Controller
     {
         _context = context;
         _gpudata = from gpu in _context.Gpus.Include(g => g.Model)
-            orderby gpu.Name
-            select new GpusViewModel
-            {
-                Id = gpu.Id,
-                Cores = gpu.Cores,
-                Description = gpu.Description,
-                FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
-                MemorySizeInGb = gpu.MemorySize + "GB",
-                PriceInDollars = gpu.Price + "$",
-                ReleaseDate = gpu.ReleaseDate,
-                TdpInWatts = gpu.Tdp + "W",
-                ModelName = gpu.Model.Name,
-                ImageName = gpu.Image.Name
-            };
+                   orderby gpu.Name
+                   select new GpusViewModel
+                   {
+                       Id = gpu.Id,
+                       Cores = gpu.Cores,
+                       Description = gpu.Description,
+                       FullGpuName = gpu.Name.Contains("Vigus") ? gpu.Name : "Vigus " + gpu.Name,
+                       MemorySizeInGb = gpu.MemorySize + "GB",
+                       PriceInDollars = gpu.Price + "$",
+                       ReleaseDate = gpu.ReleaseDate,
+                       TdpInWatts = gpu.Tdp + "W",
+                       ModelName = gpu.Model.Name,
+                       ImageName = gpu.Image.Name
+                   };
         _technologydata = _context.GpuTechnologies.Include(t => t.Image).OrderByDescending(x => x.Id);
         _seriesdata = _context.Series.OrderByDescending(s => s.Name);
     }
@@ -64,7 +65,7 @@ public class HomeController : Controller
             return Json(gpus);
         }
     }
-    
+
     public IActionResult Support()
     {
         SupportViewModel svm = new()
@@ -78,23 +79,39 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult Support(SupportViewModel svm)
+    public async Task<IActionResult> Support(SupportViewModel svm)
     {
-        var driverdata = from driver in _context.DriverVersions
-            select new DriverVersion
+        if (svm.SelectedItems == null || svm.SelectedItems.Any() == false)
+        {
+            return NotFound();
+        }
+        else
+        {
+            foreach (var gpuId in svm.SelectedItems)
             {
-                Name = "Vigus Driver Software " + driver.Name
-            };
+                var foundGpu = await _context.Gpus.FindAsync(gpuId);
 
-        //svm.GpuViewModel = _gpudata;
-        //svm.GpuModelVm = _context.GpuModels;
-        svm.DriverViewModel = driverdata;
+                if (foundGpu == null || gpuId == 0 || foundGpu.SupportedDriverVersions == null || foundGpu.SupportedDriverVersions.Count <= 0)
+                {
+                    break;
+                }
+                else
+                {
+                    svm.SelectListItems = new List<SelectListItem>();
+                    foreach (var driver in foundGpu.SupportedDriverVersions)
+                    {
+                        svm.SelectListItems.Add(new SelectListItem
+                        {
+                            Text = "Vigus Driver Version " + driver.Name,
+                            Value = driver.Id.ToString()
+                        });
+                    }
+                }
+            }
+        }
         svm.SeriesVm = _seriesdata;
         svm.TechnologyViewModel = _technologydata;
 
-        //ViewData["ModelId"] = new SelectList(_context.GpuModels.OrderByDescending(z => z.Name), "Id", "Name");
-        //ViewData["GpuId"] = new SelectList(_context.Gpus, "Id", "Name");
-        ViewData["DriverId"] = new SelectList(_context.DriverVersions, "Id", "Name");
         ViewData["OsId"] = new SelectList(_context.OsVersions, "Id", "Name");
         return View(svm);
     }

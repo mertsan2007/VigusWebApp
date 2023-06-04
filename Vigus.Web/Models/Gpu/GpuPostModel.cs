@@ -1,6 +1,6 @@
-﻿namespace Vigus.Web.Models;
+﻿namespace Vigus.Web.Models.Gpu;
 
-public class GpuCreatePostModel
+public class GpuPostModel
 {
     public int? Id { get; set; }
     public int[]? SelectedItems { get; set; }

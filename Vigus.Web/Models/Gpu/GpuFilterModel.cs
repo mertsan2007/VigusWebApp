@@ -1,4 +1,4 @@
-﻿namespace Vigus.Web.Models;
+﻿namespace Vigus.Web.Models.Gpu;
 
 public class GpuFilterModel
 {
