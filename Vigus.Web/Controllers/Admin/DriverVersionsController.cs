@@ -57,7 +57,7 @@ public class DriverVersionsController : Controller
             _context.Add(driverVersion);
             await _context.SaveChangesAsync();
 
-            if (driverVersion.SelectedItems != null || driverVersion.SelectedItems.Any())
+            if (driverVersion.SelectedItems != null && driverVersion.SelectedItems.Any())
             {
                 var dversion = await _context.DriverVersions.FindAsync(driverVersion.Id);
                 foreach (var osId in driverVersion.SelectedItems)

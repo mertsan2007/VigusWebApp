@@ -53,7 +53,7 @@ public class GpuModelsController : Controller
 
             _context.Add(gpuModel);
             await _context.SaveChangesAsync();
-            if (gcm.SelectedItems != null || gcm.SelectedItems.Any())
+            if (gcm.SelectedItems != null && gcm.SelectedItems.Any())
             {
                 var gmodel = await _context.GpuModels.FindAsync(gpuModel.Id);
                 foreach (var technologyId in gcm.SelectedItems)

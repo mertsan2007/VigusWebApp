@@ -119,7 +119,7 @@ public class GpusController : Controller
             _context.Add(gpu);
             await _context.SaveChangesAsync();
 
-            if (gpm.SelectedItems != null || gpm.SelectedItems.Length > 0)
+            if (gpm.SelectedItems != null && gpm.SelectedItems.Length > 0)
             {
                 CreateDriverVersions(gpu.Id, gpm.SelectedItems);
             }
