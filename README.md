@@ -1,16 +1,8 @@
 # VigusWebApp
-gerçek olmayan bilgisayar parçaları üreten bir firmanın websitesi. sitenin amacı bu firmanın ürünleri hakkında bilgi sahibi olma ve indirilebilir içeriklerini görüntülemedir. Bu firma birden fazla ürün (gpu) üretir. GPU(ekran kartı)'ların belirli özellikleri vardır. Bellek kapasitesi, Tükettiği güç ve sahip olduğu gpu ailesi(c,b,a serisi) bunlardan bazılarıdır. Her GPU'nun sahip olduğu driver sürümleri birden fazla olabilir ayrıca her driver sürümünün birden fazla GPU'su olabilir. bu bir many to many ilişkisine örnektir.
+a website for imaginary company called "vigus" 
 
-Home/support.cshtml bir gpu bulup o gpu'nun sahip olduğu driver sürümlerini ve firmanın ürünlerinde kullanduığı teknolojileri görüntülemek içindir.
-Home/index.cshtml firmanın tüm ürünlerini en son eklenene göre sıralar. Bu sıralama ayrıca bir partial view örneğidir ve Home/Products.cshtml de aynı sıralamayı görmek mümkündür.
-
-Geri kalan viewlerin çoğu CRUD işlemleri içindir.
-
-# not:
-uygulamayı çalıştırmadan önce package manager consola update-database yazınız.
-uygulamanın tasarımının çoğu benim değildir
-
-# ekran görüntüleri
-![alt text](https://raw.githubusercontent.com/mertsan2007/VigusWebApp/master/fotograflar/1.jpeg)
-![alt text](https://raw.githubusercontent.com/mertsan2007/VigusWebApp/master/fotograflar/2.jpeg)
-![alt text](https://raw.githubusercontent.com/mertsan2007/VigusWebApp/master/fotograflar/3.jpeg)
+# how to run this application:
+1) make sure you have installed sql server with localdb support and asp.net7.0
+2) clone this repository, open it with jb rider or visual studio
+3) build the solution
+4) run `update-database` command on the package manager console
