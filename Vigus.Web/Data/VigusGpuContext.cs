@@ -99,29 +99,29 @@ public class VigusGpuContext : DbContext
             );
 
         modelBuilder.Entity<Series>().HasData(
-            new Series { Id = 1, Name = "C Serisi" },
-            new Series { Id = 2, Name = "B Serisi" },
-            new Series { Id = 3, Name = "A Serisi" }
+            new Series { Id = 1, Name = "C Series" },
+            new Series { Id = 2, Name = "B Series" },
+            new Series { Id = 3, Name = "A Series" }
         );
 
         modelBuilder.Entity<GpuModel>().HasData(
-            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Serisi" },
-            new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Serisi" },
-            new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Serisi" },
-            new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Serisi" },
-            new GpuModel { Id = 5, SeriesId = 1, Name = "C 80 Serisi" },
-            new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Serisi" },
-            new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Serisi" }
+            new GpuModel { Id = 1, SeriesId = 2, Name = "B 500 Series" },
+            new GpuModel { Id = 2, SeriesId = 2, Name = "B 570 Series" },
+            new GpuModel { Id = 3, SeriesId = 2, Name = "B 60 Series" },
+            new GpuModel { Id = 4, SeriesId = 1, Name = "C 90 Series" },
+            new GpuModel { Id = 5, SeriesId = 1, Name = "C 80 Series" },
+            new GpuModel { Id = 6, SeriesId = 1, Name = "C 900 Series" },
+            new GpuModel { Id = 7, SeriesId = 3, Name = "A 100 Series" }
         );
 
         modelBuilder.Entity<DriverVersion>().HasData(
-            new DriverVersion { Id = 1, Name = "v1.0.2", Description = "ilk sürüm" },
+            new DriverVersion { Id = 1, Name = "v1.0.2", Description = "initial release" },
             new DriverVersion
             {
-                Id = 2, Name = "v1.1.0", Description = "ikinci sürüm",
-                KnownIssues = "aaaa", FixedChanges = "hata düzeltmesi"
+                Id = 2, Name = "v1.1.0", Description = "second release",
+                KnownIssues = "bugs are expected"
             },
-            new DriverVersion { Id = 3, Name = "v1.1.1", FixedChanges = "hata düzeltmeleri"}
+            new DriverVersion { Id = 3, Name = "v1.1.1",Description="third release", FixedChanges = "bug fixes"}
         );
 
         modelBuilder.Entity<Image>().HasData(
@@ -142,12 +142,12 @@ public class VigusGpuContext : DbContext
         modelBuilder.Entity<GpuTechnology>().HasData(
             new GpuTechnology
             {
-                Id = 2, Name = "teknoloji1", Description = "açıklama",
+                Id = 2, Name = "technology1", Description = "desc",
                 ImageId = 3
             },
             new GpuTechnology
             {
-                Id = 3, Name = "teknoloji2", Description = "açıklama",
+                Id = 3, Name = "technology2", Description = "desc",
                 ImageId = 3
             }
         );
@@ -158,7 +158,7 @@ public class VigusGpuContext : DbContext
                 Id = 1,
                 Name = "Vigus C900",
                 ModelId = 6,
-                Description = "ilk gpu",
+                Description = "first gpu from vigus",
                 Cores = 4750,
                 ImageId = 1,
                 MemorySize = 12,
@@ -248,7 +248,7 @@ public class VigusGpuContext : DbContext
             {
                 Id = 9,
                 Name = "Vigus A100",
-                Description = "düşük güç tüketimi",
+                Description = "lower power consumption",
                 ModelId = 7,
                 Cores = 1200,
                 ImageId = 1,

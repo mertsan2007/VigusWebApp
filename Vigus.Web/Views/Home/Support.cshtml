@@ -6,7 +6,7 @@
 <h3 class="text-center py-3 m-0">Drivers & Support</h3>
 <div>
     <div class="h-100 p-5 bg-light border border-5 border-dark rounded-4">
-        <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">y5tgfdsfsdsh</h2>
+        <h2 class="fw-bold lh-1 mb-3 text-decoration-underline">Vigus driver software</h2>
         <div class="row">
             <div class="col-8">
                 <p class="py-3 m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -22,7 +22,7 @@
                 <h1 class="fw-bold display-3">
                     <label asp-for="GpuModelVm">1</label>
                 </h1>
-                <h3 class="driverselect-title pb-1">Seri seçiniz</h3>
+                <h3 class="driverselect-title pb-1">Select series</h3>
                 <select class="form-control fs-5" size="11" asp-for="GpuModelVm" asp-items="ViewBag.ModelId"></select>
             </div>
         </div>
@@ -30,9 +30,9 @@
             <form asp-action="Support" method="post">
                 <div class="h-100">
                     <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light">
-                        <input type="submit" value="formu gönder" class="btn btn-outline-light btn-lg float-end" />
+                        <input type="submit" value="Submit >" class="btn btn-outline-light btn-lg float-end" />
                         <h1 class="fw-bold display-3">2</h1>
-                        <h3 class="driverselect-title pb-1">Gpu seçiniz</h3>
+                        <h3 class="driverselect-title pb-1">GPU</h3>
                         <select class="form-select fs-5 pt-4" size="11" asp-for="SelectedItems" asp-items="ViewBag.GpuId"></select>
                     </div>
                 </div>
@@ -41,10 +41,10 @@
         <div class="col-md-4">
             <div class="h-100 p-3 rounded-4 border border-3 border-dark driverselect-card text-light" style="background-color: #156c30 !important;">
                 <div class="float-end">
-                    <a class="btn btn-outline-light btn-lg" asp-action="Support">sıfırla</a>
+                    <a class="btn btn-outline-light btn-lg" asp-action="Support">Reset</a>
                 </div>
                 <h1 class="fw-bold display-3">3</h1>
-                <h3 class="driverselect-title pb-1">sonuç</h3>
+                <h3 class="driverselect-title pb-1">Result</h3>
                 <select class="form-control fs-5 pt-4" size="11" asp-items="Model.SelectListItems"></select>
             </div>
         </div>

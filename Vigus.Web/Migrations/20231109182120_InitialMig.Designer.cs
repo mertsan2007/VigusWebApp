@@ -12,8 +12,8 @@ using Vigus.Web.Data;
 namespace Vigus.Web.Migrations
 {
     [DbContext(typeof(VigusGpuContext))]
-    [Migration("20230604095442_Seed3")]
-    partial class Seed3
+    [Migration("20231109182120_InitialMig")]
+    partial class InitialMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,54 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("SupportedDriverVersionsId");
 
-                    b.ToTable("DriverVersionGpu");
+                    b.ToTable("DriverVersionGpu", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            GpusId = 1,
+                            SupportedDriverVersionsId = 1
+                        },
+                        new
+                        {
+                            GpusId = 1,
+                            SupportedDriverVersionsId = 2
+                        },
+                        new
+                        {
+                            GpusId = 1,
+                            SupportedDriverVersionsId = 3
+                        },
+                        new
+                        {
+                            GpusId = 2,
+                            SupportedDriverVersionsId = 1
+                        },
+                        new
+                        {
+                            GpusId = 2,
+                            SupportedDriverVersionsId = 2
+                        },
+                        new
+                        {
+                            GpusId = 3,
+                            SupportedDriverVersionsId = 3
+                        },
+                        new
+                        {
+                            GpusId = 3,
+                            SupportedDriverVersionsId = 1
+                        },
+                        new
+                        {
+                            GpusId = 4,
+                            SupportedDriverVersionsId = 2
+                        },
+                        new
+                        {
+                            GpusId = 5,
+                            SupportedDriverVersionsId = 3
+                        });
                 });
 
             modelBuilder.Entity("DriverVersionOsVersion", b =>
@@ -55,7 +102,69 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("OsVersionsId");
 
-                    b.ToTable("DriverVersionOsVersion");
+                    b.ToTable("DriverVersionOsVersion", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            DriverVersionsId = 1,
+                            OsVersionsId = 1
+                        },
+                        new
+                        {
+                            DriverVersionsId = 1,
+                            OsVersionsId = 2
+                        },
+                        new
+                        {
+                            DriverVersionsId = 1,
+                            OsVersionsId = 3
+                        },
+                        new
+                        {
+                            DriverVersionsId = 1,
+                            OsVersionsId = 5
+                        },
+                        new
+                        {
+                            DriverVersionsId = 2,
+                            OsVersionsId = 2
+                        },
+                        new
+                        {
+                            DriverVersionsId = 2,
+                            OsVersionsId = 3
+                        },
+                        new
+                        {
+                            DriverVersionsId = 2,
+                            OsVersionsId = 5
+                        },
+                        new
+                        {
+                            DriverVersionsId = 2,
+                            OsVersionsId = 6
+                        },
+                        new
+                        {
+                            DriverVersionsId = 3,
+                            OsVersionsId = 3
+                        },
+                        new
+                        {
+                            DriverVersionsId = 3,
+                            OsVersionsId = 4
+                        },
+                        new
+                        {
+                            DriverVersionsId = 3,
+                            OsVersionsId = 5
+                        },
+                        new
+                        {
+                            DriverVersionsId = 3,
+                            OsVersionsId = 6
+                        });
                 });
 
             modelBuilder.Entity("GpuModelGpuTechnology", b =>
@@ -70,7 +179,54 @@ namespace Vigus.Web.Migrations
 
                     b.HasIndex("GpuTechnologiesId");
 
-                    b.ToTable("GpuModelGpuTechnology");
+                    b.ToTable("GpuModelGpuTechnology", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            GpuModelsId = 1,
+                            GpuTechnologiesId = 2
+                        },
+                        new
+                        {
+                            GpuModelsId = 1,
+                            GpuTechnologiesId = 3
+                        },
+                        new
+                        {
+                            GpuModelsId = 2,
+                            GpuTechnologiesId = 2
+                        },
+                        new
+                        {
+                            GpuModelsId = 2,
+                            GpuTechnologiesId = 3
+                        },
+                        new
+                        {
+                            GpuModelsId = 3,
+                            GpuTechnologiesId = 3
+                        },
+                        new
+                        {
+                            GpuModelsId = 4,
+                            GpuTechnologiesId = 3
+                        },
+                        new
+                        {
+                            GpuModelsId = 5,
+                            GpuTechnologiesId = 2
+                        },
+                        new
+                        {
+                            GpuModelsId = 6,
+                            GpuTechnologiesId = 3
+                        },
+                        new
+                        {
+                            GpuModelsId = 7,
+                            GpuTechnologiesId = 2
+                        });
                 });
 
             modelBuilder.Entity("Vigus.Web.Data.DriverVersion", b =>
@@ -105,21 +261,21 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "ilk sürüm",
+                            Description = "initial release",
                             Name = "v1.0.2"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "ikinci sürüm",
-                            FixedChanges = "hata düzeltmesi",
-                            KnownIssues = "aaaa",
+                            Description = "second release",
+                            KnownIssues = "bugs are expected",
                             Name = "v1.1.0"
                         },
                         new
                         {
                             Id = 3,
-                            FixedChanges = "hata düzeltmeleri",
+                            Description = "third release",
+                            FixedChanges = "bug fixes",
                             Name = "v1.1.1"
                         });
                 });
@@ -180,7 +336,7 @@ namespace Vigus.Web.Migrations
                         {
                             Id = 1,
                             Cores = 4750,
-                            Description = "ilk gpu",
+                            Description = "first gpu from vigus",
                             ImageId = 1,
                             MemorySize = 12,
                             ModelId = 6,
@@ -271,7 +427,7 @@ namespace Vigus.Web.Migrations
                         {
                             Id = 9,
                             Cores = 1200,
-                            Description = "düşük güç tüketimi",
+                            Description = "lower power consumption",
                             ImageId = 1,
                             MemorySize = 4,
                             ModelId = 7,
@@ -309,43 +465,43 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "B 500 Serisi",
+                            Name = "B 500 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 2,
-                            Name = "B 570 Serisi",
+                            Name = "B 570 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Name = "B 60 Serisi",
+                            Name = "B 60 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 4,
-                            Name = "C 90 Serisi",
+                            Name = "C 90 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 5,
-                            Name = "C 80 Serisi",
+                            Name = "C 80 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 6,
-                            Name = "C 900 Serisi",
+                            Name = "C 900 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 7,
-                            Name = "A 100 Serisi",
+                            Name = "A 100 Series",
                             SeriesId = 3
                         });
                 });
@@ -381,16 +537,16 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "açıklama",
+                            Description = "desc",
                             ImageId = 3,
-                            Name = "teknoloji1"
+                            Name = "technology1"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "açıklama",
+                            Description = "desc",
                             ImageId = 3,
-                            Name = "teknoloji2"
+                            Name = "technology2"
                         });
                 });
 
@@ -509,17 +665,17 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "C Serisi"
+                            Name = "C Series"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "B Serisi"
+                            Name = "B Series"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "A Serisi"
+                            Name = "A Series"
                         });
                 });
 

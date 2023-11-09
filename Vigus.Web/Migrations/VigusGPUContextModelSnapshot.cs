@@ -258,21 +258,21 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "ilk sürüm",
+                            Description = "initial release",
                             Name = "v1.0.2"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "ikinci sürüm",
-                            FixedChanges = "hata düzeltmesi",
-                            KnownIssues = "aaaa",
+                            Description = "second release",
+                            KnownIssues = "bugs are expected",
                             Name = "v1.1.0"
                         },
                         new
                         {
                             Id = 3,
-                            FixedChanges = "hata düzeltmeleri",
+                            Description = "third release",
+                            FixedChanges = "bug fixes",
                             Name = "v1.1.1"
                         });
                 });
@@ -333,7 +333,7 @@ namespace Vigus.Web.Migrations
                         {
                             Id = 1,
                             Cores = 4750,
-                            Description = "ilk gpu",
+                            Description = "first gpu from vigus",
                             ImageId = 1,
                             MemorySize = 12,
                             ModelId = 6,
@@ -424,7 +424,7 @@ namespace Vigus.Web.Migrations
                         {
                             Id = 9,
                             Cores = 1200,
-                            Description = "düşük güç tüketimi",
+                            Description = "lower power consumption",
                             ImageId = 1,
                             MemorySize = 4,
                             ModelId = 7,
@@ -462,43 +462,43 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "B 500 Serisi",
+                            Name = "B 500 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 2,
-                            Name = "B 570 Serisi",
+                            Name = "B 570 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Name = "B 60 Serisi",
+                            Name = "B 60 Series",
                             SeriesId = 2
                         },
                         new
                         {
                             Id = 4,
-                            Name = "C 90 Serisi",
+                            Name = "C 90 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 5,
-                            Name = "C 80 Serisi",
+                            Name = "C 80 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 6,
-                            Name = "C 900 Serisi",
+                            Name = "C 900 Series",
                             SeriesId = 1
                         },
                         new
                         {
                             Id = 7,
-                            Name = "A 100 Serisi",
+                            Name = "A 100 Series",
                             SeriesId = 3
                         });
                 });
@@ -534,16 +534,16 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "açıklama",
+                            Description = "desc",
                             ImageId = 3,
-                            Name = "teknoloji1"
+                            Name = "technology1"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "açıklama",
+                            Description = "desc",
                             ImageId = 3,
-                            Name = "teknoloji2"
+                            Name = "technology2"
                         });
                 });
 
@@ -662,17 +662,17 @@ namespace Vigus.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "C Serisi"
+                            Name = "C Series"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "B Serisi"
+                            Name = "B Series"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "A Serisi"
+                            Name = "A Series"
                         });
                 });
 
